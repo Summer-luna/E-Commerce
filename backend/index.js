@@ -60,19 +60,16 @@ app.post("/signup", (req, res)=>{
   User.register({username: data.email}, data.password, (err, user)=>{
     if(err) {
       console.log(err);
-      res.redirect("http://localhost:3000/signup")
+      res.send({isCreated: false});
     }else{
       passport.authenticate('local', (req, res)=>{
-        res.redirect("http://localhost:3000")
+        res.send({isCreated: true});
       })
     }
   })
-
-  res.send("successfully saved!")
 })
 
 app.listen(8000, ()=>{
   console.log("Listening on port 8000!");
 })
-
 

@@ -8,8 +8,8 @@ import About from '../Routes/About';
 import Cart from '../Routes/Cart';
 import Signup from '../Routes/Signup';
 import Login from "../Routes/Login";
-
-
+import Account from "../Routes/Account";
+import ProtectedRouter from "../Routes/ProtectedRouter";
 
 const App = () => {
   return (
@@ -20,9 +20,12 @@ const App = () => {
           <Route path="shop" element={ <Shop /> } />
           <Route path="category" element={ <Category /> } />
           <Route path="about" element={ <About /> } />
-          <Route path="Signup" element={ <Signup /> } />
-          <Route path="Login" element={ <Login /> } />
           <Route path="cart" element={ <Cart /> } />
+          <Route path="login" element={ <Login /> } />
+          <Route path="signup" element={ <Signup /> } />
+          <Route element={ <ProtectedRouter /> }>
+            <Route path="account" element={ <Account /> } />
+          </Route>
         </Route>
       </Routes>
     </div>

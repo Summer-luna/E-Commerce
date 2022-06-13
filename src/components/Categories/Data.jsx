@@ -3,19 +3,19 @@ const Data = [
     id: 1,
     title: "Washi Tape",
     name: "washiTape",
-    path: "/Maruco Art - Date with Cherry Blossoms Washi Tape.webp"
+    path: "/WashiTape.webp"
   },
   {
     id: 2,
     title: "Sticker",
     name: "sticker",
-    path: "/Mind Wave Amie Sticker Flakes - Antique Girl.webp"
+    path: "/Sticker.webp"
   },
   {
     id: 3,
     title: "Stamp",
     name: "stamp",
-    path: "/BGM Clear Stamp Set - Shiba Dog.webp"
+    path: "/StampSet.webp"
   },
   {
     id: 4,

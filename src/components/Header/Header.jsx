@@ -34,7 +34,7 @@ const Header = () => {
             </Link>
           </li>
           <li className="nav-item home-account">
-            <Link to="/Signup" className="nav-link">
+            <Link to="/account" className="nav-link">
               <BsPersonFill className="header-icon header-account" /> Account
             </Link>
           </li>
