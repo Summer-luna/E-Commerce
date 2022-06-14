@@ -14,7 +14,7 @@ const Signup = () => {
 
     let navigate = useNavigate();
 
-    //const [isAuth, setAuth] = useContext(AuthContext);
+    const [isAuth, setAuth] = useContext(AuthContext);
 
     const changeHandler = (e) => {
         const { name, value } = e.target;
@@ -32,10 +32,11 @@ const Signup = () => {
         const statusCode = response.status;
 
         if(statusCode === 200){
-            //setAuth(true);
+            setAuth(true);
             navigate("/account", { state: { isAuth: true } });
+        }else {
+            setAuth(false);
         }
-
     };
 
     return (

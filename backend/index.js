@@ -64,12 +64,17 @@ app.post("/signup", (req, res) => {
         passport.authenticate("local")(req, res, () => {
           //res.json({code:"successfully!"});
             res.send("successfully!");
-            //res.redirect("http://localhost:3000/account");
         });
       }
     }
   );
 });
+
+app.post("/login", (req, res)=>{
+    passport.authenticate("local")(req, res, ()=>{
+        res.send("successfully!");
+    })
+})
 
 app.listen(8000, () => {
   console.log("Listening on port 8000!");

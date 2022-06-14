@@ -1,12 +1,33 @@
 import "./account.scss";
 import { BsGoogle, BsFacebook } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import {useState} from "react";
 
 const Login = () => {
+
+  const [user, setUser] = useState({
+    username: "",
+    password: ""
+  });
+
+  const changeHandle = (e) => {
+    const {name, value} = e.target;
+    setUser(preValue => {
+      return {
+        ...preValue,
+        [name]: value
+      }
+    })
+  }
+
+  const login = (e) => {
+    e.preventDefault();
+  }
+
   return (
       <div className="register-container">
         <div className="card">
-          <form>
+          <form onSubmit={login}>
             <div className="form-title">
               <h2>Login</h2>
             </div>
@@ -16,10 +37,12 @@ const Login = () => {
             <div className="form-inputs">
               <input
                   type="email"
-                  name="email"
+                  name="username"
                   id="email"
                   className="form-input"
                   placeholder="Enter Email"
+                  value={user.username}
+                  onChange={changeHandle}
               />
               <input
                   type="password"
@@ -27,6 +50,8 @@ const Login = () => {
                   id="password"
                   className="form-input"
                   placeholder="Enter Password"
+                  value={user.password}
+                  onChange={changeHandle}
               />
             </div>
             <div className="form-text"></div>

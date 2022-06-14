@@ -10,7 +10,7 @@ import Signup from '../Routes/Signup';
 import Login from "../Routes/Login";
 import Account from "../Routes/Account";
 import ProtectedRouter from "../Routes/ProtectedRouter";
-import { AuthProvider } from "../Routes/AuthContext";
+
 
 const App = () => {
   return (
@@ -22,12 +22,11 @@ const App = () => {
           <Route path="category" element={ <Category /> } />
           <Route path="about" element={ <About /> } />
           <Route path="cart" element={ <Cart /> } />
-            <Route path="login" element={ <Login /> } />
-            <Route path="signup" element={ <Signup /> } />
-            <Route element={ <ProtectedRouter /> }>
-              <Route path="account" element={ <Account /> } />
-            </Route>
-
+          <Route path="login" element={ <Login /> } />
+          <Route path="signup" element={ <Signup /> } />
+          <Route element={ <ProtectedRouter /> }>
+            <Route path="account" element={ <Account /> } />
+          </Route>
         </Route>
       </Routes>
     </div>
