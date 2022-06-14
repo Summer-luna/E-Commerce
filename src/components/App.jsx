@@ -10,6 +10,7 @@ import Signup from '../Routes/Signup';
 import Login from "../Routes/Login";
 import Account from "../Routes/Account";
 import ProtectedRouter from "../Routes/ProtectedRouter";
+//import { AuthProvider } from "../Routes/AuthContext";
 
 const App = () => {
   return (

@@ -1,18 +1,14 @@
 import "./account.scss";
 import { BsGoogle, BsFacebook } from "react-icons/bs";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
 
 const Signup = () => {
     const [user, setUser] = useState({
-        email: "",
+        username: "",
         password: "",
     });
-
-    const [isAuthenticated, setAuthenticated] = useState(false);
-
-    let navigate = useNavigate();
 
     const changeHandler = (e) => {
         const { name, value } = e.target;
@@ -26,10 +22,9 @@ const Signup = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        console.log("submitted");
-
         const response = await axios.post('/signup', user);
-        //const data = await response.data;
+        const finalData = await response.data;
+        console.log(finalData);
     };
 
     return (
@@ -45,12 +40,12 @@ const Signup = () => {
                     <div className="form-inputs">
                         <input
                             type="email"
-                            name="email"
+                            name="username"
                             id="email"
                             className="form-input"
                             placeholder="Enter Email"
                             onChange={changeHandler}
-                            value={user.email}
+                            value={user.username}
                         />
                         <input
                             type="password"

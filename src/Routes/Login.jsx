@@ -1,41 +1,12 @@
 import "./account.scss";
 import { BsGoogle, BsFacebook } from "react-icons/bs";
-import { useState } from "react";
-import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Signup = () => {
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [isAuthenticated, setAuthenticated] = useState(false);
-
-  let navigate = useNavigate();
-
-  const changeHandler = (e) => {
-    const { name, value } = e.target;
-    setUser((preValue) => {
-      return {
-        ...preValue,
-        [name]: value,
-      };
-    });
-  };
-
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    console.log("submitted");
-
-    const response = await axios.post('/signup', user);
-    //const data = await response.data;
-  };
-
+const Login = () => {
   return (
       <div className="register-container">
         <div className="card">
-          <form onSubmit={submitHandler}>
+          <form>
             <div className="form-title">
               <h2>Login</h2>
             </div>
@@ -49,8 +20,6 @@ const Signup = () => {
                   id="email"
                   className="form-input"
                   placeholder="Enter Email"
-                  onChange={changeHandler}
-                  value={user.email}
               />
               <input
                   type="password"
@@ -58,8 +27,6 @@ const Signup = () => {
                   id="password"
                   className="form-input"
                   placeholder="Enter Password"
-                  onChange={changeHandler}
-                  value={user.password}
               />
             </div>
             <div className="form-text"></div>
@@ -93,4 +60,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;
