@@ -1,14 +1,20 @@
 import "./account.scss";
-import { BsGoogle, BsFacebook } from "react-icons/bs";
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
+import { BsGoogle, BsFacebook } from "react-icons/bs";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {AuthContext} from "./AuthContext";
+
 
 const Signup = () => {
     const [user, setUser] = useState({
         username: "",
         password: "",
     });
+
+    let navigate = useNavigate();
+
+    //const [isAuth, setAuth] = useContext(AuthContext);
 
     const changeHandler = (e) => {
         const { name, value } = e.target;
@@ -23,8 +29,13 @@ const Signup = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
         const response = await axios.post('/signup', user);
-        const finalData = await response.data;
-        console.log(finalData);
+        const statusCode = response.status;
+
+        if(statusCode === 200){
+            //setAuth(true);
+            navigate("/account", { state: { isAuth: true } });
+        }
+
     };
 
     return (

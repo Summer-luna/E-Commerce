@@ -2,14 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
-const bodyParser = require("body-parser");
+//const bodyParser = require("body-parser");
 const session = require("express-session");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 // configure session
@@ -54,7 +54,6 @@ passport.deserializeUser(function (id, done) {
 });
 
 app.post("/signup", (req, res) => {
-  console.log(req.body);
   User.register(
     { username: req.body.username },
     req.body.password,
@@ -63,7 +62,9 @@ app.post("/signup", (req, res) => {
         res.send(err);
       } else {
         passport.authenticate("local")(req, res, () => {
-          res.send("successfully!");
+          //res.json({code:"successfully!"});
+            res.send("successfully!");
+            //res.redirect("http://localhost:3000/account");
         });
       }
     }

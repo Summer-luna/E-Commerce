@@ -1,6 +1,14 @@
+import {AuthContext} from "./AuthContext";
+import {useContext} from "react";
+
+
 const Account = () => {
+    //const [isAuth, setAuth] = useContext(AuthContext)
+
     return(
-        <div>Dashboard</div>
+        <div>
+            <h1>Dashboard</h1>
+        </div>
     )
 }
 

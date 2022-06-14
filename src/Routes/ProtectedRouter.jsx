@@ -1,9 +1,10 @@
 import {Outlet, Navigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 const ProtectedRouter = () => {
+    const {state: {isAuth}} = useLocation();
 
-    const isLogin = false;
-    if(!isLogin){
+    if(!isAuth){
         return <Navigate to="/login" replace />
     }else {
         return <Outlet />
