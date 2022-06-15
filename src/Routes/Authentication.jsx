@@ -6,15 +6,15 @@ import { Link, useNavigate } from "react-router-dom";
 import {AuthContext} from "./AuthContext";
 
 
-const Signup = () => {
+const Authentication = ({status}) => {
+
+    const [isAuth, setAuth] = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const [user, setUser] = useState({
         username: "",
         password: "",
     });
-
-    let navigate = useNavigate();
-
-    const [isAuth, setAuth] = useContext(AuthContext);
 
     const changeHandler = (e) => {
         const { name, value } = e.target;
@@ -30,7 +30,6 @@ const Signup = () => {
         e.preventDefault();
         const response = await axios.post('/signup', user, {withCredentials: true});
         const statusCode = response.status;
-
         if(statusCode === 200){
             setAuth(true);
             navigate("/account", { state: { isAuth: true } });
@@ -44,10 +43,12 @@ const Signup = () => {
             <div className="card">
                 <form onSubmit={submitHandler}>
                     <div className="form-title">
-                        <h2>Create Account</h2>
+                        <h2>{status==="signup"? "Create Account" : "Login"}</h2>
                     </div>
                     <div className="form-description">
-                        <p>Hey, Enter your details to get Sign up your account</p>
+                        <p>
+                            {status==="signup"? "Hey, Enter your details to get Sign up your account" : "Hey, Enter your details to get Sign in your account"}
+                        </p>
                     </div>
                     <div className="form-inputs">
                         <input
@@ -71,10 +72,10 @@ const Signup = () => {
                     </div>
                     <div className="form-text"></div>
                     <div className="form-button">
-                        <button type="submit">Create</button>
+                        <button type="submit">{status==="signup"? "Create" : "Signin"}</button>
                     </div>
                     <div className="form-text">
-                        <hr /> or Sign up with
+                        <hr /> {status==="signup"? "or Sign up with" : "or Sign in with"}
                     </div>
                     <div className="form-button">
                         <button type="submit" className="google-btn social-btn">
@@ -89,9 +90,9 @@ const Signup = () => {
                         </button>
                     </div>
                     <div className="form-text">
-                        Have an account?
+                        {status==="signup"? "Have an account?" : "Don't have an account?"}
                         <strong>
-                            <Link to="/login">Signin Now</Link>
+                            <Link to={status==="signup"? "/login":"/signup"}>{status==="signup"? "Signin Now" : "Create Now"}</Link>
                         </strong>
                     </div>
                 </form>
@@ -100,4 +101,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default Authentication;

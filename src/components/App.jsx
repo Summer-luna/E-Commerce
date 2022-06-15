@@ -6,11 +6,9 @@ import Shop from '../Routes/Shop';
 import Category from '../Routes/Category';
 import About from '../Routes/About';
 import Cart from '../Routes/Cart';
-import Signup from '../Routes/Signup';
-import Login from "../Routes/Login";
+import Authentication from '../Routes/Authentication';
 import Account from "../Routes/Account";
 import ProtectedRouter from "../Routes/ProtectedRouter";
-
 
 const App = () => {
   return (
@@ -22,8 +20,8 @@ const App = () => {
           <Route path="category" element={ <Category /> } />
           <Route path="about" element={ <About /> } />
           <Route path="cart" element={ <Cart /> } />
-          <Route path="login" element={ <Login /> } />
-          <Route path="signup" element={ <Signup /> } />
+          <Route path="login" element={ <Authentication status="login" /> } />
+          <Route path="signup" element={ <Authentication status="signup" /> } />
           <Route element={ <ProtectedRouter /> }>
             <Route path="account" element={ <Account /> } />
           </Route>

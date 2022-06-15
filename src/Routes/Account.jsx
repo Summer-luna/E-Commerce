@@ -11,6 +11,7 @@ const Account = () => {
         setAuth(false);
         navigate("/", {replace: true});
     }
+
     return(
         <div>
             <h1>Dashboard</h1>
