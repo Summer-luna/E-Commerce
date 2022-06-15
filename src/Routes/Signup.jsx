@@ -28,7 +28,7 @@ const Signup = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        const response = await axios.post('/signup', user);
+        const response = await axios.post('/signup', user, {withCredentials: true});
         const statusCode = response.status;
 
         if(statusCode === 200){

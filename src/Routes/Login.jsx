@@ -1,7 +1,9 @@
 import "./account.scss";
 import { BsGoogle, BsFacebook } from "react-icons/bs";
-import { Link } from "react-router-dom";
-import {useState} from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {useContext, useState} from "react";
+import axios from "axios";
+import {AuthContext} from "./AuthContext";
 
 const Login = () => {
 
@@ -9,6 +11,10 @@ const Login = () => {
     username: "",
     password: ""
   });
+
+  const [isAuth, setAuth] = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const changeHandle = (e) => {
     const {name, value} = e.target;
@@ -20,8 +26,17 @@ const Login = () => {
     })
   }
 
-  const login = (e) => {
+  const login = async (e) => {
     e.preventDefault();
+    const response = await axios.post('/login', user, {withCredentials: true});
+    const statusCode = response.status;
+    console.log(response);
+    if(statusCode === 200){
+      setAuth(true);
+      navigate("/account", { state: { isAuth: true } });
+    }else {
+      setAuth(false);
+    }
   }
 
   return (

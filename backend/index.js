@@ -2,13 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
-//const bodyParser = require("body-parser");
 const session = require("express-session");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    credentials: true
+}));
 //app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -62,7 +63,6 @@ app.post("/signup", (req, res) => {
         res.send(err);
       } else {
         passport.authenticate("local")(req, res, () => {
-          //res.json({code:"successfully!"});
             res.send("successfully!");
         });
       }
@@ -71,10 +71,21 @@ app.post("/signup", (req, res) => {
 });
 
 app.post("/login", (req, res)=>{
-    passport.authenticate("local")(req, res, ()=>{
-        res.send("successfully!");
+    const user = new User({
+        username: req.body.username,
+        passport: req.body.password
     })
-})
+
+    req.login(user, (err)=>{
+        if(err){
+            res.send(err);
+        }else{
+            passport.authenticate("local")(req, res, ()=>{
+                res.send("successfully!");
+            })
+        }
+    })
+});
 
 app.listen(8000, () => {
   console.log("Listening on port 8000!");
