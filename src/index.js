@@ -1,7 +1,7 @@
 import {createRoot} from 'react-dom/client';
 import App from './components/App';
 import { BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "./Routes/AuthContext";
+import { AuthProvider } from "./Routes/Authentication/AuthContext";
 
 const root = createRoot(document.querySelector('#root'));
 

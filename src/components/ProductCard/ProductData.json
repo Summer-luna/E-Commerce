@@ -1,0 +1,38 @@
+[
+  {
+    "name": "BGM Little Shop Sticker Flakes - Japanese Restaurant",
+    "price": "4.95",
+    "image": [
+      "https://cdn.shopify.com/s/files/1/0071/5941/4899/products/BS-LS008_1800x1800.jpg?v=1654749564",
+      "https://cdn.shopify.com/s/files/1/0071/5941/4899/products/BS-LS008-1_1800x1800.jpg?v=1654749564"
+    ],
+    "category": "sticker"
+  },
+  {
+    "name": "BGM Little World Gold Foil Washi Tape - Night Forest",
+    "price": "4.75",
+    "image": [
+      "https://cdn.shopify.com/s/files/1/0071/5941/4899/products/BM-SPRW012_1800x1800.jpg?v=1648585634",
+      "https://cdn.shopify.com/s/files/1/0071/5941/4899/products/BM-SPRW012-3_1800x1800.jpg?v=1648585634"
+    ],
+    "category": "washi tape"
+  },
+  {
+    "name": "BGM Clear Stamp Set - Shiba Dog",
+    "price": "9.00",
+    "image": [
+      "https://cdn.shopify.com/s/files/1/0071/5941/4899/products/BT-CS054_1800x1800.jpg?v=1644355209",
+      "https://cdn.shopify.com/s/files/1/0071/5941/4899/products/BT-CS054-2_1800x1800.jpg?v=1644355209"
+    ],
+    "category": "stamp"
+  },
+  {
+    "name": "Midori MD Notebook Journal - A5 Dot Grid",
+    "price": "14.50",
+    "image": [
+      "https://cdn.shopify.com/s/files/1/0071/5941/4899/products/15259_1800x1800.jpg?v=1639709907",
+      "https://cdn.shopify.com/s/files/1/0071/5941/4899/products/15259-1_1800x1800.jpg?v=1639709906"
+    ],
+    "category": "notebook"
+  }
+]

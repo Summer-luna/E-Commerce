@@ -1,4 +1,4 @@
-import "./account.scss";
+import "./authentication.scss";
 import axios from "axios";
 import { BsGoogle, BsFacebook } from "react-icons/bs";
 import { useState, useContext } from "react";

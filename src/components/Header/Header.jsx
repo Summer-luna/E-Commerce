@@ -12,14 +12,14 @@ const Header = () => {
 
   return (
     <header>
-      <Link to="/">
-        <img id="logo" src="/logo.png" alt="luna moon" />
+      <Link to="/" className="link" >
+        <h3 className="logo">Moon.</h3>
       </Link>
       <input type="text" className="searchField" />
       <nav className={isClicked ? "activeNav" : ""}>
         <ul className="nav-items">
           <li className="nav-item home-shop">
-            <Link to="/shop" className="nav-link">
+            <Link to="/all-products" className="nav-link">
               Shop
             </Link>
           </li>
@@ -28,11 +28,11 @@ const Header = () => {
               Category
             </Link>
           </li>
-          <li className="nav-item home-about">
+          {/*<li className="nav-item home-about">
             <Link to="/about" className="nav-link">
               About
             </Link>
-          </li>
+          </li>*/}
           <li className="nav-item home-account">
             <Link to="/account" className="nav-link">
               <BsPersonFill className="header-icon header-account" /> Account
