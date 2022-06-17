@@ -3,11 +3,9 @@ import { Add, Subtract } from 'grommet-icons';
 import Products from "../../components/ProductCard/ProductData.json";
 import {useParams} from "react-router-dom";
 import {lowerCase} from "lodash";
-import {useState} from "react";
 
 const Product = () => {
   let { productId } = useParams();
-  const [item, setItem] = useState();
 
   const renderContent = Products.map(({name, price, image}, index) => {
     if(lowerCase(name) === lowerCase(productId)){
