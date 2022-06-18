@@ -1,13 +1,15 @@
 import "./product.scss";
-import { Add, Subtract } from 'grommet-icons';
 import Products from "../../components/ProductCard/ProductData.json";
+import { Add, Subtract } from 'grommet-icons';
 import {useParams} from "react-router-dom";
 import {lowerCase} from "lodash";
-import {useState} from "react";
+import {useState, useContext} from "react";
+import {ProductContext} from "../Shop/ProductContext";
 
 const Product = () => {
   const { productId } = useParams();
   const [count, setCount] = useState(1);
+  const [cart, setCart] = useContext(ProductContext);
 
   const changeCount = (e) => {
     //console.log(e.target);
@@ -18,6 +20,10 @@ const Product = () => {
         setCount(preValue => preValue - 1);
       }
     }
+  }
+
+  const addToCart = () => {
+    setCart(preValue => preValue + count);
   }
 
   const renderContent = Products.map(({name, price, image}, index) => {
@@ -39,7 +45,7 @@ const Product = () => {
                 <Subtract color="white" size="small" className="icon" />
               </div>
             </div>
-            <button>Add to cart</button>
+            <button onClick={addToCart}>Add to cart</button>
           </div>
         </div>
       )

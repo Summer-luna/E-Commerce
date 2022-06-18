@@ -1,14 +1,25 @@
-import { BsFillCartFill, BsPersonFill } from "react-icons/bs";
 import "./header.scss";
-import React, { useState } from "react";
+import { BsFillCartFill, BsPersonFill } from "react-icons/bs";
+import { Cart, Shop } from 'grommet-icons';
+import {useState, useContext, useEffect} from "react";
 import { Link } from "react-router-dom";
+import {ProductContext} from "../../Routes/Shop/ProductContext";
 
 const Header = () => {
+
+  const [cart, setCart] = useContext(ProductContext);
   const [isClicked, setClicked] = useState(false);
+  const [cartActive, setCartActive] = useState(false);
 
   const changeNavBar = () => {
     setClicked((preState) => !preState);
   };
+
+  useEffect(()=>{
+    if(cart != null){
+      setCartActive(true);
+    }
+  },[cart])
 
   return (
     <header>
@@ -28,11 +39,6 @@ const Header = () => {
               Category
             </Link>
           </li>
-          {/*<li className="nav-item home-about">
-            <Link to="/about" className="nav-link">
-              About
-            </Link>
-          </li>*/}
           <li className="nav-item home-account">
             <Link to="/account" className="nav-link">
               <BsPersonFill className="header-icon header-account" /> Account
@@ -40,7 +46,8 @@ const Header = () => {
           </li>
           <li className="nav-item home-cart">
             <Link to="/cart" className="nav-link">
-              <BsFillCartFill className="header-icon header-cart" /> Cart
+              <Shop color="black" className="header-icon header-cart" /> Cart
+              <div className={cartActive ? 'cart-count' : ''}>{cart}</div>
             </Link>
           </li>
         </ul>

@@ -25,6 +25,8 @@ header {
 .nav-link{
   text-decoration: none;
   color: black;
+  position: relative;
+  font-size: 1.2rem;
 }
 
 .nav-item{
@@ -42,6 +44,21 @@ header {
 
 .lines{
   display: none;
+}
+
+.cart-count {
+  border-radius: 50%;
+  background-color: #ea5555;
+  height: 15px;
+  width: 15px;
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  padding: 2px;
 }
 
 /* Responsive */
