@@ -3,9 +3,22 @@ import { Add, Subtract } from 'grommet-icons';
 import Products from "../../components/ProductCard/ProductData.json";
 import {useParams} from "react-router-dom";
 import {lowerCase} from "lodash";
+import {useState} from "react";
 
 const Product = () => {
-  let { productId } = useParams();
+  const { productId } = useParams();
+  const [count, setCount] = useState(1);
+
+  const changeCount = (e) => {
+    //console.log(e.target);
+    if(e.target.classList.contains("add-btn")){
+      setCount(preValue => preValue + 1);
+    }else {
+      if(count > 1){
+        setCount(preValue => preValue - 1);
+      }
+    }
+  }
 
   const renderContent = Products.map(({name, price, image}, index) => {
     if(lowerCase(name) === lowerCase(productId)){
@@ -18,12 +31,12 @@ const Product = () => {
             <div className="product-price-amount">${price}</div>
             <div className="product-quantity">
               <div>Quantity</div>
-              <div className="add-btn btn">
-                <Add color="white" size="small"/>
+              <div className="add-btn btn" onClick={changeCount} >
+                <Add color="white" size="small" className="icon" />
               </div>
-              <div className="product-quantity-amount">1</div>
-              <div className="subtract-btn btn">
-                <Subtract color="white" size="small" />
+              <div className="product-quantity-amount">{count}</div>
+              <div className="subtract-btn btn" onClick={changeCount} >
+                <Subtract color="white" size="small" className="icon" />
               </div>
             </div>
             <button>Add to cart</button>

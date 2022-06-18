@@ -19,6 +19,7 @@
   .product-quantity{
     display: flex;
   }
+
   .btn{
     background: black;
     border-radius: 50%;
@@ -27,6 +28,10 @@
     margin:0 10px;
     text-align: center;
     width: 20px;
+  }
+
+  .icon{
+    pointer-events: none;
   }
 
   .product-price-title,
