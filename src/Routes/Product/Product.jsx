@@ -1,18 +1,19 @@
 import "./product.scss";
-import Products from "../../components/ProductCard/ProductData.json";
 import { Add, Subtract } from 'grommet-icons';
 import {useParams} from "react-router-dom";
 import {lowerCase} from "lodash";
-import {useState, useContext} from "react";
+import {useState, useContext, useEffect} from "react";
 import {ProductContext} from "../Shop/ProductContext";
+import axios from "axios";
+import PopUp from "../../components/PopupMessage/PopUp";
 
 const Product = () => {
   const { productId } = useParams();
   const [count, setCount] = useState(1);
-  const [cart, setCart] = useContext(ProductContext);
+  const [cart, setCart, products, setProducts] = useContext(ProductContext);
+  const [popup, setPopup] = useState(false);
 
   const changeCount = (e) => {
-    //console.log(e.target);
     if(e.target.classList.contains("add-btn")){
       setCount(preValue => preValue + 1);
     }else {
@@ -22,19 +23,33 @@ const Product = () => {
     }
   }
 
-  const addToCart = () => {
+  const addToCart = (product) => {
     setCart(preValue => preValue + count);
+
+    axios.post("/addCart", product)
+      .then(res => {
+        if(res.data.isAdded){
+          setPopup(true);
+          setTimeout(()=>{
+            setPopup(false);
+          }, 2000);
+        }else {
+          setPopup(false);
+        }
+    });
   }
 
-  const renderContent = Products.map(({name, price, image}, index) => {
-    if(lowerCase(name) === lowerCase(productId)){
+  //console.log(products);
+
+  const renderContent = products != null && products.map((product) => {
+    if(lowerCase(product.name) === lowerCase(productId)){
       return(
-        <div className="product" key={index}>
-          <img src={image} alt="" />
+        <div className="product" key={product._id}>
+          <img src={product.image} alt="" />
           <div className="product-content">
-            <div className="product-title">{name}</div>
+            <div className="product-title">{product.name}</div>
             <div className="product-price-title">Price</div>
-            <div className="product-price-amount">${price}</div>
+            <div className="product-price-amount">${product.price}</div>
             <div className="product-quantity">
               <div>Quantity</div>
               <div className="add-btn btn" onClick={changeCount} >
@@ -45,8 +60,9 @@ const Product = () => {
                 <Subtract color="white" size="small" className="icon" />
               </div>
             </div>
-            <button onClick={addToCart}>Add to cart</button>
+            <button onClick={()=>{addToCart(product)}}>Add to cart</button>
           </div>
+          {popup && <PopUp title={product.name}/>}
         </div>
       )
     }

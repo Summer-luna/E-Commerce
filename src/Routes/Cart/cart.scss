@@ -1,0 +1,17 @@
+.cart-container{
+  text-align: center;
+}
+.cart{
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-items{
+  flex: 1 0 500px;
+  max-width: 1000px;
+}
+
+.checkout-container{
+  flex: 1 0 300px;
+  max-width: 600px;
+}

@@ -6,7 +6,7 @@ import {useContext} from "react";
 import {ProductContext} from "../../Routes/Shop/ProductContext";
 
 
-const ProductCard = ({products}) => {
+const ProductCard = ({data}) => {
     const [count, setCount] = useContext(ProductContext);
 
     const add = (e) => {
@@ -14,10 +14,10 @@ const ProductCard = ({products}) => {
       setCount(preValue => preValue + 1);
     }
 
-    const renderContent = products.map(({name, price, image}, index) => {
+    const renderContent = data != null && data.map(({name, price, image}, index) => {
         return(
-            <Link to={`/all-products/${kebabCase(name)}`} className={"product-link"} >
-                <div className="product-card" key={index}>
+            <Link to={`/all-products/${kebabCase(name)}`} className={"product-link"} key={index}>
+                <div className="product-card" >
                         <div className="product-image"
                              style={{backgroundImage: `url(${image})`}}>
                         </div>
@@ -30,6 +30,7 @@ const ProductCard = ({products}) => {
             </Link>
         );
     });
+
     return(
         <>
             {renderContent}

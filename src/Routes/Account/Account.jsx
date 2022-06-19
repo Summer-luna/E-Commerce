@@ -1,7 +1,8 @@
 import './account.scss';
-import {useNavigate, Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {AuthContext} from "../Authentication/AuthContext";
 import {useContext} from "react";
+import axios from "axios";
 
 const Account = () => {
     const navigate = useNavigate();
@@ -9,9 +10,11 @@ const Account = () => {
 
     const logout = (e) => {
         e.preventDefault();
-        localStorage.removeItem("isAuth");
-        setAuth(false);
-        navigate("/", {replace: true});
+        axios.post("/logout")
+          .then((res)=>{
+            setAuth(false);
+            navigate("/", {replace: true});
+          })
     }
 
     return(

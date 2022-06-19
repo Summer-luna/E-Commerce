@@ -5,7 +5,6 @@ import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {AuthContext} from "./AuthContext";
 
-
 const Authentication = ({status}) => {
 
     const [isAuth, setAuth] = useContext(AuthContext);
@@ -28,9 +27,9 @@ const Authentication = ({status}) => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        const response = await axios.post('/signup', user, {withCredentials: true});
-        const statusCode = response.status;
-        if(statusCode === 200){
+        const response = await axios.post(`/${status}`, user, {withCredentials: true});
+        const data = await response.data;
+        if(data.auth){
             setAuth(true);
             navigate("/account", { state: { isAuth: true } });
         }else {

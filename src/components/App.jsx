@@ -9,11 +9,27 @@ import Account from "../Routes/Account/Account";
 import ProtectedRouter from "../Routes/ProtectedRouter";
 import Product from "../Routes/Product/Product";
 import { Route, Routes } from 'react-router-dom';
-import {ProductData} from "../components/ProductCard/ProductData.json";
-
-
+import {useContext, useEffect} from "react";
+import axios from "axios";
+import {AuthContext} from "../Routes/Authentication/AuthContext";
+import {ProductContext} from "../Routes/Shop/ProductContext";
 
 const App = () => {
+  const [auth, setAuth] = useContext(AuthContext);
+  const [products, setProducts] = useContext(ProductContext);
+
+  // when first render, check if user login, send get request to server to check their cookie
+  useEffect(()=>{
+    axios.get("/checkAuth")
+      .then((res)=>{
+        if(res.data.auth){
+          setAuth(true);
+        }else {
+          setAuth(false);
+        }
+      })
+  },[])
+
   return (
     <div className="container">
       <Routes>
@@ -27,12 +43,12 @@ const App = () => {
           <Route path="cart" element={ <Cart /> } />
           <Route path="login" element={ <Authentication status="login" /> } />
           <Route path="signup" element={ <Authentication status="signup" /> } />
-
           <Route element={ <ProtectedRouter /> }>
             <Route path="account" element={ <Account /> } />
           </Route>
         </Route>
       </Routes>
+
     </div>
   );
 };

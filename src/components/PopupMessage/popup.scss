@@ -1,0 +1,19 @@
+.popup-container{
+  box-shadow: -1px 5px 9px 3px rgba(205,205,205,0.91);
+  height: auto;
+  width: 300px;
+  display: flex;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+.StatusGood-icon{
+  background-color: #8BD866;
+  border-radius: 50%;
+  padding: 6px;
+  margin: auto 8px auto 0;
+}
+
