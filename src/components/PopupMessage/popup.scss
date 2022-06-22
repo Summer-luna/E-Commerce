@@ -1,12 +1,13 @@
 .popup-container{
   box-shadow: -1px 5px 9px 3px rgba(205,205,205,0.91);
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
   height: auto;
   width: 300px;
-  display: flex;
   position: absolute;
   top: 50px;
   left: 50%;
-  border-radius: 5px;
   padding: 0 10px;
 }
 

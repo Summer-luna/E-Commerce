@@ -1,18 +1,26 @@
 import "./Shop.scss";
-//import Products from "../../components/ProductCard/ProductData.json";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { ProductContext } from "./ProductContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import axios from "axios";
 
 const Shop = () => {
 
-  const [cart, setCart, products, setProducts] = useContext(ProductContext);
+  const [products, setProducts] = useContext(ProductContext);
+
+
+
+  const renderContent = products != null && products.map((product, index) => {
+    return(
+      <ProductCard product={product} key={index} />
+    );
+  });
 
   return(
     <div className="products-container">
-        <h1>All products </h1>
+        <h1>All products</h1>
         <div className="product-cards">
-            <ProductCard data={products} />
+          {renderContent}
         </div>
     </div>
   )

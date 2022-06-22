@@ -5,34 +5,22 @@ export const ProductContext = createContext();
 
 export const ProductProvider = (props) => {
 
-  const [cart, setCart] = useState(null);
   const [products, setProducts] = useState(null);
-  const [cartItems, setCartItems] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
+  const [popup, setPopup] = useState(false);
 
-  /*useEffect(()=>{
-    setCart(JSON.parse(localStorage.getItem('cart')))
-  },[])
-
-  useEffect(()=>{
-    localStorage.setItem('cart', cart);
-  })*/
+  const getProducts = async () => {
+    const { data } = await axios.get("/getProducts");
+    setProducts(data);
+  }
 
   useEffect(()=>{
-    axios.get("/products")
-      .then((res)=>{
-        setProducts(res.data);
-      });
-  }, [])
+    getProducts();
+  },[]);
 
-  useEffect(()=>{
-    axios.get("/getCart")
-      .then(res => {
-        setCartItems(res.data.data);
-      })
-  }, [])
 
   return(
-    <ProductContext.Provider value={[cart, setCart, products, setProducts, cartItems, setCartItems]}>
+    <ProductContext.Provider value={[products, setProducts, cartItems, setCartItems, popup, setPopup]}>
       {props.children}
     </ProductContext.Provider>
   )

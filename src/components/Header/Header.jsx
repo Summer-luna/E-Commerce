@@ -7,7 +7,7 @@ import {ProductContext} from "../../Routes/Shop/ProductContext";
 
 const Header = () => {
 
-  const [cart, setCart] = useContext(ProductContext);
+  //const [cart, setCart] = useContext(ProductContext);
   const [isClicked, setClicked] = useState(false);
   const [cartActive, setCartActive] = useState(false);
 
@@ -15,11 +15,11 @@ const Header = () => {
     setClicked((preState) => !preState);
   };
 
-  useEffect(()=>{
+  /*useEffect(()=>{
     if(cart != null){
       setCartActive(true);
     }
-  },[cart])
+  },[cart])*/
 
   return (
     <header>
@@ -47,7 +47,7 @@ const Header = () => {
           <li className="nav-item home-cart">
             <Link to="/cart" className="nav-link">
               <Shop color="black" className="header-icon header-cart" /> Cart
-              <div className={cartActive ? 'cart-count' : ''}>{cart}</div>
+              <div className={cartActive ? 'cart-count' : ''}></div>
             </Link>
           </li>
         </ul>

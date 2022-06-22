@@ -1,33 +1,26 @@
 import './app.scss';
-import Layout from "../Routes/Layout";
-import Home from '../Routes/Home';
-import Shop from '../Routes/Shop/Shop';
-import Category from '../Routes/Category';
-import Cart from '../Routes/Cart/Cart';
-import Authentication from '../Routes/Authentication/Authentication';
-import Account from "../Routes/Account/Account";
-import ProtectedRouter from "../Routes/ProtectedRouter";
-import Product from "../Routes/Product/Product";
+import Layout from "./Routes/Layout";
+import Home from './Routes/Home';
+import Shop from './Routes/Shop/Shop';
+import Category from './Routes/Category';
+import Cart from './Routes/Cart/Cart';
+import Authentication from './Routes/Authentication/Authentication';
+import Account from "./Routes/Account/Account";
+import ProtectedRouter from "./Routes/ProtectedRouter";
+import Product from "./Routes/Shop/Product";
 import { Route, Routes } from 'react-router-dom';
 import {useContext, useEffect} from "react";
+import {AuthContext} from "./Routes/Authentication/AuthContext";
 import axios from "axios";
-import {AuthContext} from "../Routes/Authentication/AuthContext";
-import {ProductContext} from "../Routes/Shop/ProductContext";
 
 const App = () => {
-  const [auth, setAuth] = useContext(AuthContext);
-  const [products, setProducts] = useContext(ProductContext);
 
-  // when first render, check if user login, send get request to server to check their cookie
+  const [auth, setAuth] = useContext(AuthContext);
+
+  // check if user login when first render
   useEffect(()=>{
     axios.get("/checkAuth")
-      .then((res)=>{
-        if(res.data.auth){
-          setAuth(true);
-        }else {
-          setAuth(false);
-        }
-      })
+      .then( res => res.data.auth ? setAuth(true) : setAuth(false));
   },[])
 
   return (
@@ -48,7 +41,6 @@ const App = () => {
           </Route>
         </Route>
       </Routes>
-
     </div>
   );
 };

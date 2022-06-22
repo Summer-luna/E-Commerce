@@ -41,7 +41,7 @@ const productSchema = new mongoose.Schema(({
 const userSchema = new mongoose.Schema({
   username: String,
   passport: String,
-  cart: [productSchema]
+  cart: []
 });
 
 // adding mongoose plugins
@@ -130,7 +130,7 @@ app.get("/checkAuth", (req, res)=>{
   })
 })
 
-app.get("/products", (req, res)=>{
+app.get("/getProducts", (req, res)=>{
   Product.find((err, foundProduct)=>{
     if(err){
       console.log(err);
@@ -148,7 +148,8 @@ app.post("/addCart", (req, res)=>{
       console.log(err);
     }else {
       if(foundUser){
-        foundUser.cart.push(req.body);
+        console.log(req.body);
+        foundUser.cart = req.body;
         foundUser.save();
         res.json({
           message: "Successfully added to cart.",
@@ -179,6 +180,18 @@ app.get("/getCart", (req, res)=> {
           message: "Failure get cart data!"
         });
       }
+    }
+  })
+});
+
+app.post("/removeItem", (req, res)=>{
+  console.log(req.body);
+  User.findByIdAndUpdate(req.user.id, { $pull: { cart: { _id: req.body.itemId } } },(err, results)=>{
+    if(!err){
+      res.json({
+        message: "Successfully delete item from cart",
+        deleted: true
+      })
     }
   })
 })
