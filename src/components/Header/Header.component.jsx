@@ -3,13 +3,13 @@ import { BsFillCartFill, BsPersonFill } from "react-icons/bs";
 import { Cart, Shop } from 'grommet-icons';
 import {useState, useContext, useEffect} from "react";
 import { Link } from "react-router-dom";
-import {ProductContext} from "../Context/ProductContext";
+import {ProductContext} from "../../Context/ProductContext";
 
 const HeaderComponent = () => {
 
   const [isClicked, setClicked] = useState(false);
   const [cartActive, setCartActive] = useState(true);
-  const [products, setProducts, cartItems, setCartItems, popup, setPopup] = useContext(ProductContext);
+  const { cartItems } = useContext(ProductContext);
 
   const changeNavBar = () => {
     setClicked((preState) => !preState);

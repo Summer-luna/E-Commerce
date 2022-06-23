@@ -2,12 +2,12 @@ import "./product.scss";
 import { useParams } from "react-router-dom";
 import { lowerCase } from "lodash";
 import { useContext, useEffect } from "react";
-import { ProductContext } from "../../components/Context/ProductContext";
+import { ProductContext } from "../../Context/ProductContext";
 import SingleProductComponent from "../../components/Single-Product/SingleProduct.component";
 
 const Product = () => {
   const { productId } = useParams();
-  const [products, setProducts, cartItems, setCartItems, popup, setPopup] = useContext(ProductContext);
+  const { products } = useContext(ProductContext);
 
   const findItem = products != null && products.find((product)=>{
     return lowerCase(product.name) === lowerCase(productId);

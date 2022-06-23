@@ -1,44 +1,48 @@
 import {Add, Subtract} from "grommet-icons";
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import axios from "axios";
+import {useContext} from "react";
+import {ProductContext} from "../../Context/ProductContext";
+import {kebabCase} from "lodash";
+import { Link } from "react-router-dom";
 
-const CartItemComponent = ({ item, getCart }) =>{
+const CartItemComponent = ({ item }) =>{
 
-  const [itemQuantity, setItemQuantity] = useState(item.quantity);
-  const navigate = useNavigate();
-
-  const increaseQuantity = (e) => {
-    setItemQuantity(preValue => preValue + 1);
-  }
+  const {cartItems, setCartItems, postCartItems, increaseQuantity} = useContext(ProductContext);
 
   const decreaseQuantity = (e) => {
-    itemQuantity > 1 && setItemQuantity(preValue => preValue - 1);
+    let items = cartItems.map((cartItem)=>{
+      return cartItem._id === item._id ? {...cartItem, quantity: cartItem.quantity - 1} : cartItem;
+    })
 
+    items = items.filter((item)=>{
+      return item.quantity !== 0;
+    })
+
+    postCartItems(items);
+    setCartItems(items);
   }
 
-  const removeItemFromCart = async (itemId) => {
-    // post item to database and remove it from user's cart
-    const { data } = await axios.post("/removeItem", {itemId: itemId});
-
-    if(data.deleted){
-      getCart();
-      navigate("/cart", {replace: true});
-    }
+  const removeItemFromCart = (itemId) => {
+    const restCarItems = cartItems.filter(cartItem => {
+      return cartItem._id !== itemId;
+    })
+    postCartItems(restCarItems);
+    setCartItems(restCarItems);
   }
 
   return(
       <div className="cart-item" key={item._id}>
-        <img src={item.image} alt={item.name} />
+        <Link to={`/all-products/${kebabCase(item.name)}`} className="item-link">
+          <img src={item.image} alt={item.name} />
+        </Link>
         <div className="item-detail">
           <div className="item-title">{item.name}</div>
           <div className="product-quantity">
             <div>Quantity</div>
-            <div className="add-btn btn" onClick={increaseQuantity} >
+            <div className="add-btn btn" onClick={()=>{increaseQuantity(item._id)}} >
               <Add color="white" size="small" className="icon" />
             </div>
-            <div className="product-quantity-amount">{itemQuantity}</div>
-            <div className="subtract-btn btn" onClick={decreaseQuantity} >
+            <div className="product-quantity-amount">{item.quantity}</div>
+            <div className="subtract-btn btn" onClick={()=>{decreaseQuantity(item._id)}} >
               <Subtract color="white" size="small" className="icon" />
             </div>
           </div>

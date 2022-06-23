@@ -1,12 +1,11 @@
 import {Add, Subtract} from "grommet-icons";
 import PopUpComponent from "../PopupMessage/PopUp.component";
-import {useContext, useEffect, useState} from "react";
-import {ProductContext} from "../Context/ProductContext";
-import axios from "axios";
+import {useContext, useState} from "react";
+import {ProductContext} from "../../Context/ProductContext";
 
 const SingleProductComponent = ({product}) => {
 
-  const [products, setProducts, cartItems, setCartItems, popup, setPopup] = useContext(ProductContext);
+  const {cartItems, setCartItems, popup, setPopup, postCartItems} = useContext(ProductContext);
   const [itemQuantity, setItemQuantity] = useState(1);
 
   const increaseQuantity = (e) => {
@@ -27,7 +26,7 @@ const SingleProductComponent = ({product}) => {
         then update the cartItem */
 
     if(existCartItem){
-      return cartItems.map((cartItem)=> cartItem.id === product.id ? {...cartItem, quantity: cartItem.quantity + itemQuantity} : cartItem)
+      return cartItems.map((cartItem)=> cartItem._id === product._id ? {...cartItem, quantity: cartItem.quantity + itemQuantity} : cartItem)
     }
     //:TODO if not exist, add product with quantity
     return [...cartItems, {...product, quantity: itemQuantity}];
@@ -35,20 +34,9 @@ const SingleProductComponent = ({product}) => {
 
   const addToCart = async (product) => {
     const data = addToCartItems(cartItems, product);
-
     // set cartItem
+    postCartItems(data);
     setCartItems(data);
-
-    // store cart to database
-    const res = await axios.post("/addCart", data);
-    if(res.data.isAdded){
-      setPopup(true);
-      setTimeout(()=>{
-        setPopup(false);
-      }, 1000);
-    }else {
-      setPopup(false);
-    }
   }
 
   return(

@@ -10,7 +10,7 @@ import ProtectedRouter from "./Routes/ProtectedRouter";
 import Product from "./Routes/Shop/Product";
 import { Route, Routes } from 'react-router-dom';
 import {useContext, useEffect} from "react";
-import {AuthContext} from "./components/Context/AuthContext";
+import {AuthContext} from "./Context/AuthContext";
 import axios from "axios";
 
 const App = () => {

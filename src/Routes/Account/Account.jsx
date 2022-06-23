@@ -1,6 +1,6 @@
 import './account.scss';
 import {useNavigate} from "react-router-dom";
-import {AuthContext} from "../../components/Context/AuthContext";
+import {AuthContext} from "../../Context/AuthContext";
 import {useContext} from "react";
 import axios from "axios";
 
@@ -14,7 +14,7 @@ const Account = () => {
           .then((res)=>{
             setAuth(false);
             navigate("/", {replace: true});
-          })
+          });
     }
 
     return(
