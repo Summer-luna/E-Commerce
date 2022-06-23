@@ -1,7 +1,8 @@
+import Data from './Data';
 import './category.scss';
-const Category = ({data}) => {
 
-  const renderContent = data.map((d) => {
+const CategoriesComponent = () => {
+  const renderContent = Data.map((d) => {
     return (
       <div className={`${d.name} category`}>
         <img src={d.path} alt={d.name} className="" />
@@ -17,4 +18,4 @@ const Category = ({data}) => {
   )
 }
 
-export default Category
+export default CategoriesComponent

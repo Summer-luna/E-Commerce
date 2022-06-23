@@ -3,23 +3,25 @@ import { BsFillCartFill, BsPersonFill } from "react-icons/bs";
 import { Cart, Shop } from 'grommet-icons';
 import {useState, useContext, useEffect} from "react";
 import { Link } from "react-router-dom";
-import {ProductContext} from "../../Routes/Shop/ProductContext";
+import {ProductContext} from "../Context/ProductContext";
 
-const Header = () => {
+const HeaderComponent = () => {
 
-  //const [cart, setCart] = useContext(ProductContext);
   const [isClicked, setClicked] = useState(false);
-  const [cartActive, setCartActive] = useState(false);
+  const [cartActive, setCartActive] = useState(true);
+  const [products, setProducts, cartItems, setCartItems, popup, setPopup] = useContext(ProductContext);
 
   const changeNavBar = () => {
     setClicked((preState) => !preState);
   };
 
-  /*useEffect(()=>{
-    if(cart != null){
-      setCartActive(true);
-    }
-  },[cart])*/
+  const sumOfCart = () => {
+    let sum = 0;
+    cartItems.forEach((item)=>{
+      sum += item.quantity;
+    })
+    return sum;
+  }
 
   return (
     <header>
@@ -47,7 +49,7 @@ const Header = () => {
           <li className="nav-item home-cart">
             <Link to="/cart" className="nav-link">
               <Shop color="black" className="header-icon header-cart" /> Cart
-              <div className={cartActive ? 'cart-count' : ''}></div>
+              <div className={cartActive ? 'cart-count' : ''}>{sumOfCart()}</div>
             </Link>
           </li>
         </ul>
@@ -64,4 +66,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HeaderComponent;

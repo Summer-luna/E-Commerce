@@ -1,6 +1,6 @@
 import "./Shop.scss";
-import ProductCard from "../../components/ProductCard/ProductCard";
-import { ProductContext } from "./ProductContext";
+import ProductCardComponent from "../../components/ProductCard/ProductCard.component";
+import { ProductContext } from "../../components/Context/ProductContext";
 import { useContext, useEffect } from "react";
 import axios from "axios";
 
@@ -12,7 +12,7 @@ const Shop = () => {
 
   const renderContent = products != null && products.map((product, index) => {
     return(
-      <ProductCard product={product} key={index} />
+      <ProductCardComponent product={product} key={index} />
     );
   });
 

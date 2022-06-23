@@ -14,13 +14,19 @@ export const ProductProvider = (props) => {
     setProducts(data);
   }
 
+  const getCart = async () => {
+    const res = await axios.get("/getCart");
+    setCartItems(res.data.data);
+  }
+
   useEffect(()=>{
     getProducts();
+    getCart();
   },[]);
 
 
   return(
-    <ProductContext.Provider value={[products, setProducts, cartItems, setCartItems, popup, setPopup]}>
+    <ProductContext.Provider value={[products, setProducts, cartItems, setCartItems, popup, setPopup, getCart]}>
       {props.children}
     </ProductContext.Provider>
   )

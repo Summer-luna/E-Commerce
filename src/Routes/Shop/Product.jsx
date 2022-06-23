@@ -2,7 +2,7 @@ import "./product.scss";
 import { useParams } from "react-router-dom";
 import { lowerCase } from "lodash";
 import { useContext, useEffect } from "react";
-import { ProductContext } from "./ProductContext";
+import { ProductContext } from "../../components/Context/ProductContext";
 import SingleProductComponent from "../../components/Single-Product/SingleProduct.component";
 
 const Product = () => {

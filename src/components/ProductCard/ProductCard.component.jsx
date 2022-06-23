@@ -3,7 +3,7 @@ import { Add } from "grommet-icons";
 import { Link } from "react-router-dom";
 import {kebabCase} from "lodash";
 
-const ProductCard = ({product: {name, price, image}}) => {
+const ProductCardComponent = ({product: {name, price, image}}) => {
 
     return(
         <>
@@ -23,4 +23,4 @@ const ProductCard = ({product: {name, price, image}}) => {
     )
 }
 
-export default ProductCard;
+export default ProductCardComponent;

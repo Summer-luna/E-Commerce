@@ -1,11 +1,11 @@
-import Sliders from "../components/Slider/Sliders";
-import Categories from "../components/Categories/Categories";
+import Sliders from "../components/Slider/Sliders.component";
+import CategoriesComponent from "../components/Categories/Categories.component";
 
 const Home = () => {
   return (
     <>
       <Sliders />
-      <Categories />
+      <CategoriesComponent />
     </>
   );
 };

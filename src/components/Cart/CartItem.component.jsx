@@ -3,7 +3,7 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
-const CartItem = ({ item, getCart }) =>{
+const CartItemComponent = ({ item, getCart }) =>{
 
   const [itemQuantity, setItemQuantity] = useState(item.quantity);
   const navigate = useNavigate();
@@ -14,6 +14,7 @@ const CartItem = ({ item, getCart }) =>{
 
   const decreaseQuantity = (e) => {
     itemQuantity > 1 && setItemQuantity(preValue => preValue - 1);
+
   }
 
   const removeItemFromCart = async (itemId) => {
@@ -48,4 +49,4 @@ const CartItem = ({ item, getCart }) =>{
   )
 }
 
-export default CartItem;
+export default CartItemComponent;

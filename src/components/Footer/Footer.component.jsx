@@ -1,6 +1,6 @@
 import './footer.scss';
 
-const Footer = () => {
+const FooterComponent = () => {
   return(
     <div className='footer'>
       Copyright ©Xinyue Chen
@@ -8,4 +8,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default FooterComponent

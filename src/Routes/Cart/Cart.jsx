@@ -1,27 +1,20 @@
 import "./cart.scss";
-import { ProductContext } from "../Shop/ProductContext";
+import { ProductContext } from "../../components/Context/ProductContext";
 import {useContext, useEffect, useState} from "react";
-import CartItem from "../../components/Cart/CartItem";
-import axios from "axios";
+import CartItemComponent from "../../components/Cart/CartItem.component";
 
 const Cart = () => {
-  const [products, setProducts, cartItems, setCartItems] = useContext(ProductContext);
-  const [deleted, setDeleted] = useState(false);
-  console.log(deleted);
-
-  useEffect(()=>{
-    getCart();
-  }, [])
+  const [products, setProducts, cartItems, setCartItems, popup, setPopup, getCart] = useContext(ProductContext);
 
   // get user cart from database
-  const getCart = async () => {
+  /*const getCart = async () => {
     const res = await axios.get("/getCart");
     setCartItems(res.data.data);
-  }
+  }*/
 
   const renderContent = cartItems != null && cartItems.map(item =>{
     return(
-      <CartItem item={item} key={item._id} getCart={getCart}/>
+      <CartItemComponent item={item} key={item._id} getCart={getCart}/>
     )
   });
 

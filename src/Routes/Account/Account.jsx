@@ -1,6 +1,6 @@
 import './account.scss';
 import {useNavigate} from "react-router-dom";
-import {AuthContext} from "../Authentication/AuthContext";
+import {AuthContext} from "../../components/Context/AuthContext";
 import {useContext} from "react";
 import axios from "axios";
 

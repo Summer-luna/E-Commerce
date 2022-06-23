@@ -1,7 +1,7 @@
 import {Add, Subtract} from "grommet-icons";
-import PopUp from "../PopupMessage/PopUp";
+import PopUpComponent from "../PopupMessage/PopUp.component";
 import {useContext, useEffect, useState} from "react";
-import {ProductContext} from "../../Routes/Shop/ProductContext";
+import {ProductContext} from "../Context/ProductContext";
 import axios from "axios";
 
 const SingleProductComponent = ({product}) => {
@@ -45,7 +45,7 @@ const SingleProductComponent = ({product}) => {
       setPopup(true);
       setTimeout(()=>{
         setPopup(false);
-      }, 2000);
+      }, 1000);
     }else {
       setPopup(false);
     }
@@ -70,7 +70,7 @@ const SingleProductComponent = ({product}) => {
         </div>
         <button onClick={()=>{addToCart(product)}}>Add to cart</button>
       </div>
-      {popup && <PopUp title={product.name}/>}
+      {popup && <PopUpComponent title={product.name}/>}
     </div>
   )
 }
