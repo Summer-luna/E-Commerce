@@ -8,14 +8,22 @@ const CartItemComponent = ({ item }) =>{
 
   const {cartItems, setCartItems, postCartItems, increaseQuantity} = useContext(ProductContext);
 
-  const decreaseQuantity = (e) => {
-    let items = cartItems.map((cartItem)=>{
+  const decreaseQuantity = () => {
+    let items
+    if(item.quantity === 1){
+      items = cartItems.filter(carItem => carItem._id !== item._id)
+    }else {
+      items = items.map((cartItem)=>{
+        return cartItem._id === item._id ? {...cartItem, quantity: cartItem.quantity - 1} : cartItem;
+      })
+    }
+
+    /*items = items.map((cartItem)=>{
       return cartItem._id === item._id ? {...cartItem, quantity: cartItem.quantity - 1} : cartItem;
     })
-
     items = items.filter((item)=>{
       return item.quantity !== 0;
-    })
+    })*/
 
     postCartItems(items);
     setCartItems(items);

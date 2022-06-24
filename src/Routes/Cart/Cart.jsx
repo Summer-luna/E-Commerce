@@ -37,7 +37,7 @@ const Cart = () => {
         <div className="checkout-container">
           <div className="checkout">
             <div className="subtotal">Subtotal <span>${calculateSubtotal()}</span></div>
-            <button>Check out</button>
+            <Link to="/checkout"><button>Check out</button></Link>
             <Link to="/all-products"><button>Continue Shopping</button></Link>
           </div>
         </div>

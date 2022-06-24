@@ -11,6 +11,7 @@ import Product from "./Routes/Shop/Product";
 import { Route, Routes } from 'react-router-dom';
 import {useContext, useEffect} from "react";
 import {AuthContext} from "./Context/AuthContext";
+import {Checkout} from "./Routes/Checkout/Checkout";
 import axios from "axios";
 
 const App = () => {
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="signup" element={ <Authentication status="signup" /> } />
           <Route element={ <ProtectedRouter /> }>
             <Route path="account" element={ <Account /> } />
+            <Route path="checkout" element={ <Checkout /> } />
           </Route>
         </Route>
       </Routes>

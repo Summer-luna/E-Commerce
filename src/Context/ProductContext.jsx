@@ -47,8 +47,10 @@ export const ProductProvider = (props) => {
     getCart();
   },[]);
 
+  const value = {products, setProducts, cartItems, setCartItems, popup, setPopup, getCart, postCartItems, increaseQuantity}
+
   return(
-    <ProductContext.Provider value={{products, setProducts, cartItems, setCartItems, popup, setPopup, getCart, postCartItems, increaseQuantity}}>
+    <ProductContext.Provider value={value}>
       {props.children}
     </ProductContext.Provider>
   )
