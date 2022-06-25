@@ -1,30 +1,29 @@
 import {Add, Subtract} from "grommet-icons";
-import {useContext} from "react";
-import {ProductContext} from "../../Context/ProductContext";
 import {kebabCase} from "lodash";
 import { Link } from "react-router-dom";
 import {CurrencyFormat} from "../../Utility/Currency";
+import {useShoppingCart} from "../../Context/ShoppingCartContext";
 
 const CartItemComponent = ({ item }) =>{
 
-  const {cartItems, setCartItems, postCartItems, increaseQuantity} = useContext(ProductContext);
+  const {cartItems, setCartItems, postCartItems, increaseQuantity} = useShoppingCart();
 
   const decreaseQuantity = () => {
-    let items
+    /*let items
     if(item.quantity === 1){
       items = cartItems.filter(carItem => carItem._id !== item._id)
     }else {
       items = items.map((cartItem)=>{
         return cartItem._id === item._id ? {...cartItem, quantity: cartItem.quantity - 1} : cartItem;
       })
-    }
+    }*/
 
-    /*items = items.map((cartItem)=>{
+    let items = cartItems.map((cartItem)=>{
       return cartItem._id === item._id ? {...cartItem, quantity: cartItem.quantity - 1} : cartItem;
     })
     items = items.filter((item)=>{
       return item.quantity !== 0;
-    })*/
+    })
 
     postCartItems(items);
     setCartItems(items);

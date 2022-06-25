@@ -1,12 +1,13 @@
+/*
 import {Add, Subtract} from "grommet-icons";
 import PopUpComponent from "../PopupMessage/PopUp.component";
-import {useContext, useState} from "react";
-import {ProductContext} from "../../Context/ProductContext";
+import {useState} from "react";
 import {CurrencyFormat} from "../../Utility/Currency";
+import {useShoppingCart} from "../../Context/ShoppingCartContext";
 
 const SingleProductComponent = ({product}) => {
 
-  const {cartItems, setCartItems, popup, setPopup, postCartItems} = useContext(ProductContext);
+  const {cartItems, setCartItems, popup, postCartItems} = useShoppingCart();
   const [itemQuantity, setItemQuantity] = useState(1);
 
   const increaseQuantity = (e) => {
@@ -23,8 +24,8 @@ const SingleProductComponent = ({product}) => {
       return cartItem._id === product._id;
     });
 
-    /*:TODO if exist, loop all cartItems to find item.id that === product.id,
-        then update the cartItem */
+    /!*:TODO if exist, loop all cartItems to find item.id that === product.id,
+        then update the cartItem *!/
 
     if(existCartItem){
       return cartItems.map((cartItem)=> cartItem._id === product._id ? {...cartItem, quantity: cartItem.quantity + itemQuantity} : cartItem)
@@ -64,4 +65,4 @@ const SingleProductComponent = ({product}) => {
   )
 }
 
-export default SingleProductComponent;
+export default SingleProductComponent;*/

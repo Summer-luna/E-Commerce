@@ -2,12 +2,11 @@ import './product-card.scss';
 import { Add } from "grommet-icons";
 import { Link } from "react-router-dom";
 import {kebabCase} from "lodash";
-import {ProductContext} from "../../Context/ProductContext";
-import { useContext } from "react";
 import { CurrencyFormat } from "../../Utility/Currency"
+import {useShoppingCart} from "../../Context/ShoppingCartContext";
 
 const ProductCardComponent = ({product}) => {
-  const {cartItems, setCartItems, postCartItems} = useContext(ProductContext);
+  const {cartItems, setCartItems, postCartItems} = useShoppingCart();
 
   const itemsAddToCart = () => {
 

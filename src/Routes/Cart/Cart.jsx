@@ -1,19 +1,13 @@
 import "./cart.scss";
-import {ProductContext} from "../../Context/ProductContext";
-import {useContext, useEffect} from "react";
 import CartItemComponent from "../../components/Cart/CartItem.component";
 import {Link} from "react-router-dom"
 import axios from "axios";
 import {CurrencyFormat} from "../../Utility/Currency";
-
+import {useShoppingCart} from "../../Context/ShoppingCartContext";
 
 const Cart = () => {
 
-  const {cartItems, getCart} = useContext(ProductContext);
-
-  useEffect(()=>{
-    getCart();
-  },[])
+  const {cartItems, getCart} = useShoppingCart();
 
   const renderContent = cartItems != null && cartItems.map(item =>{
     return(
