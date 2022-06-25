@@ -3,6 +3,8 @@ import {ProductContext} from "../../Context/ProductContext";
 import {useContext, useEffect} from "react";
 import CartItemComponent from "../../components/Cart/CartItem.component";
 import {Link} from "react-router-dom"
+import axios from "axios";
+import {CurrencyFormat} from "../../Utility/Currency";
 
 
 const Cart = () => {
@@ -27,6 +29,13 @@ const Cart = () => {
     return sum;
   }
 
+  const processCheckOut = () => {
+    console.log("check out!");
+    // :todo send cart item' id and quantity to back-end and get the response 'stripe url' from backend
+    axios.post("/create-checkout-session")
+      .then(r => window.location = r.data.url);
+  }
+
   return(
     <div className="cart-container">
       <h1>Cart</h1>
@@ -36,8 +45,8 @@ const Cart = () => {
         </div>
         <div className="checkout-container">
           <div className="checkout">
-            <div className="subtotal">Subtotal <span>${calculateSubtotal()}</span></div>
-            <Link to="/checkout"><button>Check out</button></Link>
+            <div className="subtotal">Subtotal <span>{CurrencyFormat(calculateSubtotal())}</span></div>
+            <button onClick={processCheckOut}>Check out</button>
             <Link to="/all-products"><button>Continue Shopping</button></Link>
           </div>
         </div>

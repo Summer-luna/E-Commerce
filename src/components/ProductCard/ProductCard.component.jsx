@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import {kebabCase} from "lodash";
 import {ProductContext} from "../../Context/ProductContext";
 import { useContext } from "react";
+import { CurrencyFormat } from "../../Utility/Currency"
 
 const ProductCardComponent = ({product}) => {
   const {cartItems, setCartItems, postCartItems} = useContext(ProductContext);
@@ -36,7 +37,7 @@ const ProductCardComponent = ({product}) => {
                    style={{backgroundImage: `url(${product.image})`}}>
               </div>
               <div className="product-title">{product.name}</div>
-              <div className="product-price">${product.price}</div>
+              <div className="product-price">{CurrencyFormat(product.price)}</div>
               <div className="add-to-cart-btn" onClick={addToCart}>
                 <Add color="white" size="medium" className="add-circle" />
               </div>

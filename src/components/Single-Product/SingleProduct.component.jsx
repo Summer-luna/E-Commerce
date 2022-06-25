@@ -2,6 +2,7 @@ import {Add, Subtract} from "grommet-icons";
 import PopUpComponent from "../PopupMessage/PopUp.component";
 import {useContext, useState} from "react";
 import {ProductContext} from "../../Context/ProductContext";
+import {CurrencyFormat} from "../../Utility/Currency";
 
 const SingleProductComponent = ({product}) => {
 
@@ -45,7 +46,7 @@ const SingleProductComponent = ({product}) => {
       <div className="product-content">
         <div className="product-title">{product.name}</div>
         <div className="product-price-title">Price</div>
-        <div className="product-price-amount">${product.price}</div>
+        <div className="product-price-amount">{CurrencyFormat(product.price)}</div>
         <div className="product-quantity">
           <div>Quantity</div>
           <div className="add-btn btn" onClick={increaseQuantity} >

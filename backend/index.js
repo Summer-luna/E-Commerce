@@ -4,10 +4,11 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const session = require("express-session");
 const mongoose = require("mongoose");
-const {next} = require("lodash/seq");
 require("dotenv").config();
+const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 
 const app = express();
+
 app.use(cors({
     credentials: true
 }));
@@ -184,7 +185,7 @@ app.get("/getCart", (req, res)=> {
   })
 });
 
-app.post("/removeItem", (req, res)=>{
+/*app.post("/removeItem", (req, res)=>{
   console.log(req.body);
   User.findByIdAndUpdate(req.user.id, { $pull: { cart: { _id: req.body.itemId } } },(err, results)=>{
     if(!err){
@@ -194,6 +195,46 @@ app.post("/removeItem", (req, res)=>{
       })
     }
   })
+})*/
+
+app.post("/create-checkout-session", (req, res) => {
+  User.findById(req.user.id, async (err, foundUser)=>{
+    if(err){
+      console.log(err);
+    }else {
+      if(foundUser){
+        //console.log(foundUser.cart);
+        let cartItems = foundUser.cart;
+        const session = await stripe.checkout.sessions.create({
+          line_items: cartItems.map((cartItem) => {
+            return {
+              price_data: {
+                currency: 'usd',
+                product_data: {
+                  name: cartItem.name
+                },
+                unit_amount_decimal: cartItem.price
+              },
+              quantity: cartItem.quantity
+            }
+          }),
+          payment_method_types: ['card'],
+          mode: 'payment',
+          success_url: 'http://localhost:3000/success',
+          cancel_url: 'http://localhost:3000/cart',
+          customer_email: foundUser.username,
+          billing_address_collection: 'auto',
+          shipping_address_collection: {
+            allowed_countries: ['US', 'CA'],
+          },
+        })
+        //console.log(session);
+        res.json({url: session.url});
+      }
+    }
+  })
+
+
 })
 
 app.listen(8000, () => {

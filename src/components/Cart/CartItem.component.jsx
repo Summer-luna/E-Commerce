@@ -3,6 +3,7 @@ import {useContext} from "react";
 import {ProductContext} from "../../Context/ProductContext";
 import {kebabCase} from "lodash";
 import { Link } from "react-router-dom";
+import {CurrencyFormat} from "../../Utility/Currency";
 
 const CartItemComponent = ({ item }) =>{
 
@@ -56,7 +57,7 @@ const CartItemComponent = ({ item }) =>{
           </div>
           <div className="removeItem" onClick={()=>{removeItemFromCart(item._id)}}>Remove</div>
         </div>
-        <div className="item-price">${item.price}</div>
+        <div className="item-price">{CurrencyFormat(item.price)}</div>
       </div>
   )
 }
