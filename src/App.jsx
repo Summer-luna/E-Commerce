@@ -23,14 +23,14 @@ const App = () => {
             <Route index element={ <Shop /> } />
             <Route path=":productId" element={ <Product /> } />
           </Route>
-          {/*<Route path="category" element={ <Category /> } />
+          <Route path="category" element={ <Category /> } />
           <Route path="cart" element={ <Cart /> } />
           <Route path="login" element={ <Authentication status="login" /> } />
           <Route path="signup" element={ <Authentication status="signup" /> } />
           <Route element={ <ProtectedRouter /> }>
             <Route path="account" element={ <Account /> } />
             <Route path="success" element={ <Success /> } />
-          </Route>*/}
+          </Route>
         </Route>
       </Routes>
     </div>

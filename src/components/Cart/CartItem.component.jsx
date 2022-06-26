@@ -6,26 +6,17 @@ import {useShoppingCart} from "../../Context/ShoppingCartContext";
 
 const CartItemComponent = ({ item }) =>{
 
-  const {cartItems, setCartItems, postCartItems, increaseQuantity} = useShoppingCart();
+  const {cartItems, setCartItems, postCartItems, addToCart} = useShoppingCart();
 
   const decreaseQuantity = () => {
-    /*let items
-    if(item.quantity === 1){
-      items = cartItems.filter(carItem => carItem._id !== item._id)
-    }else {
-      items = items.map((cartItem)=>{
-        return cartItem._id === item._id ? {...cartItem, quantity: cartItem.quantity - 1} : cartItem;
-      })
-    }*/
 
     let items = cartItems.map((cartItem)=>{
       return cartItem._id === item._id ? {...cartItem, quantity: cartItem.quantity - 1} : cartItem;
     })
+
     items = items.filter((item)=>{
       return item.quantity !== 0;
     })
-
-    postCartItems(items);
     setCartItems(items);
   }
 
@@ -33,7 +24,6 @@ const CartItemComponent = ({ item }) =>{
     const restCarItems = cartItems.filter(cartItem => {
       return cartItem._id !== itemId;
     })
-    postCartItems(restCarItems);
     setCartItems(restCarItems);
   }
 
@@ -46,7 +36,7 @@ const CartItemComponent = ({ item }) =>{
           <div className="item-title">{item.name}</div>
           <div className="product-quantity">
             <div>Quantity</div>
-            <div className="add-btn btn" onClick={()=>{increaseQuantity(item._id)}} >
+            <div className="add-btn btn" onClick={()=>{addToCart(item, 1)}} >
               <Add color="white" size="small" className="icon" />
             </div>
             <div className="product-quantity-amount">{item.quantity}</div>

@@ -1,6 +1,10 @@
 import {Add, Subtract} from "grommet-icons";
+import {useShoppingCart} from "../../Context/ShoppingCartContext";
 
-export const ProductQuantityComponent = ({increaseQuantity, decreaseQuantity, itemQuantity}) => {
+export const ProductQuantityComponent = () => {
+
+  const {increaseQuantity, decreaseQuantity, itemQuantity} = useShoppingCart();
+
   return(
     <div className="product-quantity">
       <div>Quantity</div>

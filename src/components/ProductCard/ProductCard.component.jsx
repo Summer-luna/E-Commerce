@@ -3,30 +3,15 @@ import { Add } from "grommet-icons";
 import { Link } from "react-router-dom";
 import {kebabCase} from "lodash";
 import { CurrencyFormat } from "../../Utility/Currency"
-import {useShoppingCart} from "../../Context/ShoppingCartContext";
+import { useShoppingCart } from "../../Context/ShoppingCartContext";
 
 const ProductCardComponent = ({product}) => {
-  const {cartItems, setCartItems, postCartItems} = useShoppingCart();
+  const {addToCart} = useShoppingCart();
 
-  const itemsAddToCart = () => {
-
-    const existItem = cartItems.find((item)=>{
-      return item._id === product._id
-    });
-
-    if(existItem){
-      console.log("exist")
-      return cartItems.map((item)=> item._id === product._id ? {...item, quantity: item.quantity + 1} : item);
-    }
-
-    return [...cartItems, {...product, quantity: 1}]
-  }
-
-  const addToCart = (e) => {
-    e.preventDefault();
-    postCartItems(itemsAddToCart());
-    setCartItems(itemsAddToCart());
-  }
+    const addOneItemToCart = (e) => {
+      e.preventDefault();
+      addToCart(product, 1);
+    };
 
     return(
         <>
@@ -37,7 +22,7 @@ const ProductCardComponent = ({product}) => {
               </div>
               <div className="product-title">{product.name}</div>
               <div className="product-price">{CurrencyFormat(product.price)}</div>
-              <div className="add-to-cart-btn" onClick={addToCart}>
+              <div className="add-to-cart-btn" onClick={addOneItemToCart}>
                 <Add color="white" size="medium" className="add-circle" />
               </div>
             </div>

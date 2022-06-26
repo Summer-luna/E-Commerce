@@ -1,7 +1,7 @@
 import "./popup.scss";
 import { Checkmark } from "grommet-icons";
 
-const PopUpComponent = ({title}) => {
+export const PopUpComponent = ({title}) => {
   return(
     <div className="popup-container"  >
       <Checkmark color="white" className="StatusGood-icon" size="small" />
@@ -9,5 +9,3 @@ const PopUpComponent = ({title}) => {
     </div>
   )
 }
-
-export default PopUpComponent;

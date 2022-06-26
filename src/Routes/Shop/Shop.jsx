@@ -6,9 +6,9 @@ const Shop = () => {
 
   const { products } = useProduct();
 
-  const renderContent = products != null && products.map((product, index) => {
+  const renderContent = products != null && products.map((product) => {
     return(
-      <ProductCardComponent product={product} key={index} />
+      <ProductCardComponent product={product} key={product._id} />
     );
   });
 
