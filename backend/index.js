@@ -203,7 +203,6 @@ app.post("/create-checkout-session", (req, res) => {
       console.log(err);
     }else {
       if(foundUser){
-        //console.log(foundUser.cart);
         let cartItems = foundUser.cart;
         const session = await stripe.checkout.sessions.create({
           line_items: cartItems.map((cartItem) => {
@@ -227,7 +226,7 @@ app.post("/create-checkout-session", (req, res) => {
           shipping_address_collection: {
             allowed_countries: ['US', 'CA'],
           },
-        })
+        });
         //console.log(session);
         res.json({url: session.url});
       }
