@@ -27,7 +27,9 @@ const Cart = () => {
     console.log("check out!");
     // :todo send cart item' id and quantity to back-end and get the response 'stripe url' from backend
     axios.post("/create-checkout-session")
-      .then(r => window.location = r.data.url);
+      .then(r => {
+        window.location = r.data.url;
+      });
   }
 
   return(

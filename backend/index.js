@@ -5,14 +5,14 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const session = require("express-session");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
+const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY, {
+  apiVersion: '2020-08-27; orders_beta=v4' });
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const findOrCreate = require('mongoose-findorcreate');
 
 const app = express();
 
-app.use(cors({
-    credentials: true
-}));
-//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 app.use(express.json());
 
 // configure session
@@ -42,11 +42,14 @@ const productSchema = new mongoose.Schema(({
 const userSchema = new mongoose.Schema({
   username: String,
   passport: String,
-  cart: []
+  cart: [],
+  order: [],
+  googleId: String
 });
 
 // adding mongoose plugins
 userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(findOrCreate);
 
 const User = mongoose.model("User", userSchema);
 const Product = mongoose.model("Product", productSchema);
@@ -65,6 +68,19 @@ passport.deserializeUser(function (id, done) {
   });
 });
 
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: "http://localhost:8000/auth/google/account",
+  userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+},function(accessToken, refreshToken, profile, cb){
+  User.findOrCreate({googleId: profile.id}, function (err, user){
+    return cb(err, user);
+  });
+}
+));
+
+// authentication
 app.post("/signup", (req, res) => {
   User.register(
     { username: req.body.username },
@@ -104,6 +120,14 @@ app.post("/login", (req, res)=>{
     });
 });
 
+app.get("/auth/google", passport.authenticate('google', { scope: ['profile'] }));
+
+app.get("/auth/google/account", passport.authenticate('google', {failureRedirect: "http://localhost:3000/login"}),(req, res)=>{
+  // successful authentication, response to client
+  console.log(res);
+  res.redirect("http://localhost:3000");
+});
+
 app.post("/logout", (req, res)=>{
   req.logout((err)=>{
     if(err){
@@ -131,6 +155,7 @@ app.get("/checkAuth", (req, res)=>{
   })
 })
 
+// products
 app.get("/getProducts", (req, res)=>{
   Product.find((err, foundProduct)=>{
     if(err){
@@ -143,13 +168,14 @@ app.get("/getProducts", (req, res)=>{
   });
 })
 
+// cart
 app.post("/addCart", (req, res)=>{
   User.findById(req.user.id, (err, foundUser)=>{
     if(err){
       console.log(err);
     }else {
       if(foundUser){
-        console.log(req.body);
+        //console.log(req.body);
         foundUser.cart = req.body;
         foundUser.save();
         res.json({
@@ -197,6 +223,7 @@ app.get("/getCart", (req, res)=> {
   })
 })*/
 
+// payment checkout
 app.post("/create-checkout-session", (req, res) => {
   User.findById(req.user.id, async (err, foundUser)=>{
     if(err){
@@ -217,24 +244,58 @@ app.post("/create-checkout-session", (req, res) => {
               quantity: cartItem.quantity
             }
           }),
+          customer_email: foundUser.username,
           payment_method_types: ['card'],
           mode: 'payment',
           success_url: 'http://localhost:3000/success',
           cancel_url: 'http://localhost:3000/cart',
-          customer_email: foundUser.username,
           billing_address_collection: 'auto',
           shipping_address_collection: {
             allowed_countries: ['US', 'CA'],
           },
         });
-        //console.log(session);
+        console.log(session);
+        foundUser.order.push(session.id);
+        foundUser.save();
         res.json({url: session.url});
       }
     }
-  })
+  });
+});
 
-
-})
+app.get("/getOrders", (req, res)=>{
+  User.findById(req.user.id, async (err, foundUser)=>{
+    if(err){
+      console.log(err);
+    }else{
+      if(foundUser){
+        //const orders = foundUser.order;
+        let orders = [];
+        for (const order of foundUser.order) {
+          const data = await stripe.checkout.sessions.retrieve(order);
+          if (data.status === "complete") {
+            orders.push({
+              orderId: order,
+              subtotal: data.amount_subtotal,
+              amount_shipping: data.total_details.amount_shipping,
+              amount_tax: data.total_details.amount_tax,
+              total: data.amount_total,
+              customer_email: data.customer_email,
+              name: data.customer_details.name,
+              shipping_address: data.shipping.address,
+            });
+            console.log(data);
+          }
+        }
+        //console.log(orders);
+        res.json({
+          message: "Successful get all user's orders!",
+          orders: orders,
+        });
+      }
+    }
+  });
+});
 
 app.listen(8000, () => {
   console.log("Listening on port 8000!");

@@ -11,13 +11,13 @@ export const ProductProvider = (props) => {
 
   const [products, setProducts] = useState(null);
 
-  // get product from database
-  const getProducts = async () => {
-    const { data } = await axios.get("/getProducts");
-    setProducts(data);
-  }
-
   useEffect(()=>{
+    // get product from database
+    const getProducts = async () => {
+      const { data } = await axios.get("/getProducts");
+      setProducts(data);
+    }
+
     getProducts();
   },[]);
 

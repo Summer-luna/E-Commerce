@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useProduct } from "../../Context/ProductContext";
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
 import { CurrencyFormat } from "../../Utility/Currency";
-import {PopUpComponent} from "../../components/PopupMessage/PopUp.component";
+import { PopUpComponent } from "../../components/PopupMessage/PopUp.component";
 import { ProductQuantityComponent } from "../../components/ProductQuantity/ProductQuantity.component";
 
 const Product = () => {

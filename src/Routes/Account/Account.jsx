@@ -1,21 +1,37 @@
 import './account.scss';
 import {useNavigate} from "react-router-dom";
 import {AuthContext} from "../../Context/AuthContext";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
+import { Order } from "../Order/Order";
 
 const Account = () => {
-    const navigate = useNavigate();
-    const [isAuth, setAuth] = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [isAuth, setAuth] = useContext(AuthContext);
+  const [orders, setOrders] = useState(null);
 
-    const logout = (e) => {
-        e.preventDefault();
-        axios.post("/logout")
-          .then((res)=>{
-            setAuth(false);
-            navigate("/", {replace: true});
-          });
+  const logout = (e) => {
+      e.preventDefault();
+      axios.post("/logout")
+        .then((res)=>{
+          setAuth(false);
+          navigate("/", {replace: true});
+        });
+  }
+
+  useEffect(()=>{
+    const getOrders = async () => {
+      const { data } = await axios.get("/getOrders");
+      setOrders(data.orders);
     }
+    getOrders();
+  },[])
+
+  const renderContent = orders && orders.map( (order) => {
+    return (
+      <Order order = { order } key={ order.orderId } />
+    )
+  })
 
     return(
         <div>
@@ -26,6 +42,7 @@ const Account = () => {
             <div className="account-content">
                 <div className="orders">
                     <h2>Order History</h2>
+                    { renderContent }
                 </div>
                 <div className="accountDetails">
                     <h2 className="">Account Details</h2>

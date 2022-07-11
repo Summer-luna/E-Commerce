@@ -9,8 +9,7 @@ import Account from "./Routes/Account/Account";
 import ProtectedRouter from "./Routes/ProtectedRouter";
 import Product from "./Routes/Shop/Product";
 import { Route, Routes } from 'react-router-dom';
-import { Success } from "./Routes/Order/Success";
-import { Cancel } from "./Routes/Order/Cancel";
+import OrderSinglePage from "./Routes/Order/OrderSinglePage";
 
 const App = () => {
 
@@ -27,9 +26,9 @@ const App = () => {
           <Route path="cart" element={ <Cart /> } />
           <Route path="login" element={ <Authentication status="login" /> } />
           <Route path="signup" element={ <Authentication status="signup" /> } />
-          <Route element={ <ProtectedRouter /> }>
-            <Route path="account" element={ <Account /> } />
-            <Route path="success" element={ <Success /> } />
+          <Route  path="account" element={ <ProtectedRouter /> }>
+            <Route index element={ <Account /> } />
+            <Route path="orders/:orderId" element={ <OrderSinglePage /> } />
           </Route>
         </Route>
       </Routes>
