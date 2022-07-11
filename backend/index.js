@@ -15,6 +15,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use(express.static(path.resolve(__dirname, "../build")));
+
 // configure session
 app.use(
   session({
@@ -297,7 +299,7 @@ app.get("/getOrders", (req, res)=>{
   });
 });
 
-app.listen(8000, () => {
+app.listen(process.env.PORT || 8000, () => {
   console.log("Listening on port 8000!");
 });
 
