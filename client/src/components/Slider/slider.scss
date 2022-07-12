@@ -1,0 +1,47 @@
+.sliders {
+  margin: 2rem 0;
+}
+
+.slider {
+  width: 100%;
+  height: 700px;
+  position: relative;
+  overflow: hidden;
+}
+
+.slider-image {
+  width: 100%;
+  height: auto;
+}
+
+.arrow {
+  background-color: white;
+  border-radius: 50%;
+  z-index: 1;
+  font-size: 3rem;
+  position: absolute;
+  top: 50%;
+  color: black;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.right-arrow {
+  right: 0;
+}
+
+/* screen > 1200px */
+@media screen and (min-width: 1200px){
+  .slider-image{
+    position: relative;
+    top: -300px;
+  }
+}
+
+/* screen < 992px */
+@media screen and (max-width: 992px) {
+  .slider {
+    height: auto;
+  }
+}
+

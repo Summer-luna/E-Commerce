@@ -1,0 +1,25 @@
+.welcome-component{
+  text-align: center;
+}
+
+.order-title{
+  text-align: center;
+}
+
+.order-detail{
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #E9E7E9;
+  padding: 30px 0;
+  margin-top: 50px;
+  font-size: 0.8rem;
+  word-spacing: 5px;
+  letter-spacing: 1px;
+}
+
+.order-number-title,
+.order-date-title{
+  margin-bottom: 0.8rem;
+  font-weight: bold;
+}
+
