@@ -253,8 +253,8 @@ app.post("/create-checkout-session", (req, res) => {
           customer_email: foundUser.username,
           payment_method_types: ['card'],
           mode: 'payment',
-          success_url: 'http://localhost:3000/success',
-          cancel_url: 'http://localhost:3000/cart',
+          success_url: 'https://mern-e-commerce-first-app-1.herokuapp.com/account',
+          cancel_url: 'https://mern-e-commerce-first-app-1.herokuapp.com/account/cart',
           billing_address_collection: 'auto',
           shipping_address_collection: {
             allowed_countries: ['US', 'CA'],
