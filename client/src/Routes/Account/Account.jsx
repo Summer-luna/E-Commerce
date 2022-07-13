@@ -20,7 +20,7 @@ const Account = () => {
         setAuth(res.data.auth);
       })
       .then(()=>{
-        setCartItems(null);
+        setCartItems([]);
       })
       .then(()=>{
         navigate("/account");
