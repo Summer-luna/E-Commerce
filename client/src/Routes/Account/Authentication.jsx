@@ -38,7 +38,7 @@ const Authentication = ({status}) => {
     };
 
     const googleAuth = async () => {
-        await axios.get("/auth/google");
+        window.location = "https://mern-e-commerce-first-app-1.herokuapp.com/auth/google";
     }
 
     return (
