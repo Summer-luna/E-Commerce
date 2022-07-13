@@ -1,5 +1,6 @@
 import {createContext, useContext, useEffect, useState} from "react";
 import axios from "axios";
+import {axiosInstance} from "../Utility/config";
 
 const ProductContext = createContext();
 
@@ -14,7 +15,7 @@ export const ProductProvider = (props) => {
   useEffect(()=>{
     // get product from database
     const getProducts = async () => {
-      const { data } = await axios.get("/getProducts");
+      const { data } = await axiosInstance.get("/getProducts");
       setProducts(data);
     }
 
