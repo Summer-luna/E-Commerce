@@ -38,7 +38,7 @@ const Authentication = ({status}) => {
     };
 
     const googleAuth = async () => {
-        window.location = "http://localhost:8000/auth/google";
+        await axios.get("/auth/google");
     }
 
     return (
