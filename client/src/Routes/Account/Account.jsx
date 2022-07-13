@@ -13,13 +13,18 @@ const Account = () => {
   const { setCartItems } = useShoppingCart();
 
   const logout = (e) => {
-      e.preventDefault();
-      axios.post("/logout")
-        .then((res)=>{
-          setAuth(false);
-          setCartItems(null);
-          navigate("/account", { state: { isAuth: false } });
-        });
+    e.preventDefault();
+    axios.post("/logout")
+      .then((res)=>{
+        console.log(res.data.auth);
+        setAuth(res.data.auth);
+      })
+      .then(()=>{
+        setCartItems(null);
+      })
+      .then(()=>{
+        navigate("/account");
+      })
   }
 
   useEffect(()=>{
