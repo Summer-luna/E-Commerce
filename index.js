@@ -130,7 +130,11 @@ app.get("/auth/google", passport.authenticate('google', { scope: ['profile'] }))
 
 app.get("/auth/google/account", passport.authenticate('google', {failureRedirect: "/login"}),(req, res)=>{
   // successful authentication, response to client
-  res.redirect("https://mern-e-commerce-first-app-1.herokuapp.com/account");
+  //res.redirect("https://mern-e-commerce-first-app-1.herokuapp.com/account");
+  res.json({
+    message: "Successful login by google.",
+    auth: true
+  })
 });
 
 app.post("/logout", (req, res)=>{
@@ -259,7 +263,7 @@ app.post("/create-checkout-session", (req, res) => {
             allowed_countries: ['US', 'CA'],
           },
         });
-        console.log(session);
+        //console.log(session);
         foundUser.order.push(session.id);
         foundUser.save();
         res.json({url: session.url});
