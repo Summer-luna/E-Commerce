@@ -4,18 +4,21 @@ import {AuthContext} from "../../Context/AuthContext";
 import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import { Order } from "../Order/Order";
+import { useShoppingCart } from "../../Context/ShoppingCartContext";
 
 const Account = () => {
   const navigate = useNavigate();
   const [isAuth, setAuth] = useContext(AuthContext);
   const [orders, setOrders] = useState(null);
+  const { setCartItems } = useShoppingCart();
 
   const logout = (e) => {
       e.preventDefault();
       axios.post("/logout")
         .then((res)=>{
           setAuth(false);
-          //navigate("/", { state: { isAuth: false } });
+          setCartItems(null);
+          navigate("/account", { state: { isAuth: false } });
         });
   }
 
