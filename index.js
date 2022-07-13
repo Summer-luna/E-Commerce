@@ -130,8 +130,7 @@ app.get("/auth/google", passport.authenticate('google', { scope: ['profile'] }))
 
 app.get("/auth/google/account", passport.authenticate('google', {failureRedirect: "/login"}),(req, res)=>{
   // successful authentication, response to client
-  //console.log(res);
-  res.redirect("/");
+  res.redirect("https://mern-e-commerce-first-app-1.herokuapp.com/account");
 });
 
 app.post("/logout", (req, res)=>{
