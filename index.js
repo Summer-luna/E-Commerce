@@ -130,6 +130,10 @@ app.get("/auth/google", passport.authenticate('google', { scope: ['profile'] }))
 
 app.get("/auth/google/account", passport.authenticate('google', {failureRedirect: "/login"}),(req, res)=>{
   // successful authentication, response to client
+  res.json({
+    message: "Successfuylly login by google.",
+    auth: true
+  })
   res.redirect("https://mern-e-commerce-first-app-1.herokuapp.com/account");
 });
 
