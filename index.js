@@ -131,7 +131,7 @@ app.get("/auth/google", passport.authenticate('google', { scope: ['profile'] }))
 app.get("/auth/google/account", passport.authenticate('google', {failureRedirect: "http://localhost:3000/login"}),(req, res)=>{
   // successful authentication, response to client
   console.log(res);
-  res.redirect("http://localhost:3000");
+  res.redirect("/");
 });
 
 app.post("/logout", (req, res)=>{
