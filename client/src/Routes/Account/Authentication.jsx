@@ -39,7 +39,7 @@ const Authentication = ({status}) => {
 
     const googleAuth = async () => {
         //window.location = "https://mern-e-commerce-first-app-1.herokuapp.com/auth/google";
-        const res = await axios.get("/auth/google");
+        const res = await axios.get("https://mern-e-commerce-first-app-1.herokuapp.com/auth/google");
         setAuth(res.data.auth);
         navigate("/account");
     }
