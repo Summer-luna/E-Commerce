@@ -16,7 +16,7 @@ const Account = () => {
     e.preventDefault();
     axios.post("/logout")
       .then((res)=>{
-        console.log(res.data.auth);
+        //console.log(res.data.auth);
         setAuth(res.data.auth);
       })
       .then(()=>{

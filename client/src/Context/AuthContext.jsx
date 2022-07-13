@@ -10,13 +10,13 @@ export const AuthProvider = (props) => {
     useEffect(()=>{
         const data = localStorage.getItem('isAuth');
         data !== null && setAuth(JSON.parse(data));
-    },[])
+    });
 
     // check if user login when first render
     useEffect(()=>{
         axios.get("/checkAuth")
           .then( res => res.data.auth ? localStorage.setItem('isAuth', JSON.stringify(true)) : localStorage.setItem('isAuth', JSON.stringify(false)));
-    },[isAuth]);
+    }, [isAuth]);
 
 
     return(
