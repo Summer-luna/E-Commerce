@@ -15,7 +15,7 @@ const Account = () => {
       axios.post("/logout")
         .then((res)=>{
           setAuth(false);
-          navigate("/", {replace: true});
+          //navigate("/", { state: { isAuth: false } });
         });
   }
 
