@@ -134,7 +134,7 @@ app.get("/auth/google/account", passport.authenticate('google', {failureRedirect
     message: "Successfuylly login by google.",
     auth: true
   })
-  res.redirect("https://mern-e-commerce-first-app-1.herokuapp.com/account");
+  //res.redirect("https://mern-e-commerce-first-app-1.herokuapp.com/account");
 });
 
 app.post("/logout", (req, res)=>{
