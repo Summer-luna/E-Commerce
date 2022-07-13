@@ -49,6 +49,8 @@ export const ShoppingCartProvider = ({children}) => {
       if(isAuth){
         const { data } = await axios.get("/getCart");
         setCartItems(data.data);
+      }else {
+        setCartItems(null);
       }
     }
     getCart();
