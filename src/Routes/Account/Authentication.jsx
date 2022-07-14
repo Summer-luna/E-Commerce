@@ -37,7 +37,7 @@ const Authentication = ({status}) => {
         }
     };
 
-    const googleAuth = async () => {
+    const googleAuth = () => {
         window.location = "http://localhost:8000/auth/google";
     }
 
