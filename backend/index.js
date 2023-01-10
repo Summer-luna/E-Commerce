@@ -11,16 +11,18 @@ const userRouter = require("./router/user_router");
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-app.use(cors({
-  credentials: true,
-  origin: process.env.CLIENT_URL,
-}));
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env.CLIENT_URL,
+  })
+);
 
 app.use(express.json());
 
-// if(process.env.NODE_ENV === "production"){
-//   app.use(express.static('./client/build'));
-// }
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("./client/build"));
+}
 
 // configure session
 app.use(
@@ -38,14 +40,12 @@ app.use(passport.session());
 app.use(productRouter);
 app.use(userRouter);
 
-
-// app.get("*", (req, res)=>{
-//   res.sendFile(path.join(__dirname, './client/build', 'index.html'))
-// })
+if (process.env.NODE_ENV === "production") {
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "./client/build", "index.html"));
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}!`);
 });
-
-
-
