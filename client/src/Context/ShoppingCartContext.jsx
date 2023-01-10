@@ -1,6 +1,7 @@
 import {createContext, useContext, useState, useEffect} from "react";
 import {AuthContext} from "./AuthContext";
 import axios from "axios";
+import {axiosInstance} from "../lib/axios";
 
 const ShoppingCartContext = createContext();
 
@@ -47,7 +48,7 @@ export const ShoppingCartProvider = ({children}) => {
   useEffect(() => {
     const getCart = async () => {
       if(isAuth){
-        const { data } = await axios.get("/getCart");
+        const { data } = await axiosInstance.get("/getCart");
         setCartItems(data.data);
       }
     }
@@ -59,7 +60,7 @@ export const ShoppingCartProvider = ({children}) => {
 
     if(isAuth){
       const timeId = setTimeout(async ()=>{
-        await axios.post("/addCart", cartItems);
+        await axiosInstance.post("/addCart", cartItems);
       }, 1000);
 
       return(()=>{
@@ -69,7 +70,7 @@ export const ShoppingCartProvider = ({children}) => {
 
   },[cartItems]);
 
-  const value = {cartItems, setCartItems, increaseQuantity, decreaseQuantity, itemQuantity, addToCart}
+  const value = {cartItems, setCartItems, increaseQuantity, decreaseQuantity, itemQuantity, addToCart, setItemQuantity}
 
   return(
     <ShoppingCartContext.Provider value={value}>

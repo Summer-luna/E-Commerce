@@ -1,5 +1,5 @@
 import {createContext, useState, useEffect} from "react";
-import axios from "axios";
+import {axiosInstance} from "../lib/axios";
 
 export const AuthContext = createContext();
 
@@ -14,7 +14,7 @@ export const AuthProvider = (props) => {
 
     // check if user login when first render
     useEffect(()=>{
-        axios.get("/checkAuth")
+      axiosInstance.get("/checkAuth")
           .then( res => {
               localStorage.setItem('isAuth', JSON.stringify(res.data.auth));
               setAuth(res.data.auth);

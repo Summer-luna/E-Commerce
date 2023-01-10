@@ -1,10 +1,9 @@
-import './account.scss';
 import {useNavigate} from "react-router-dom";
 import {AuthContext} from "../../Context/AuthContext";
 import {useContext, useEffect, useState} from "react";
-import axios from "axios";
 import { Order } from "../Order/Order";
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
+import {axiosInstance} from "../../lib/axios";
 
 const Account = () => {
   const navigate = useNavigate();
@@ -14,7 +13,8 @@ const Account = () => {
 
   const logout = (e) => {
     e.preventDefault();
-    axios.post("/logout")
+
+    axiosInstance.post("/logout")
       .then((res)=>{
         setAuth(res.data.auth);
       })
@@ -22,38 +22,32 @@ const Account = () => {
         setCartItems([]);
       })
       .then(()=>{
-        navigate("/account");
+        navigate("/profile");
       })
   }
 
   useEffect(()=>{
     const getOrders = async () => {
-      const { data } = await axios.get("/getOrders");
+      const { data } = await axiosInstance.get("/getOrders");
       setOrders(data.orders);
     }
     getOrders();
   },[])
 
-  const renderContent = orders && orders.map( (order) => {
-    return (
-      <Order order = { order } key={ order.orderId } />
-    )
-  })
 
     return(
-        <div>
-            <div className="myAccount">
-                <h1>My Account</h1>
-                <div onClick={logout} className="logout">Log out</div>
+        <div className="flex flex-col gap-20">
+            <div className="flex justify-between pt-40">
+                <h1 className="text-xl font-bold font-mono">My Account</h1>
+                <div onClick={logout} className="cursor-pointer underline font-bold text-green-700">Log out</div>
             </div>
-            <div className="account-content">
-                <div className="orders">
-                    <h2>Order History</h2>
-                    { renderContent }
-                </div>
-                <div className="accountDetails">
-                    <h2 className="">Account Details</h2>
-                </div>
+            <div className="w-5/6">
+              <h2 className="text-base font-semibold">Order History</h2>
+              {
+                orders && orders.map( (order) => (
+                  <Order order = { order } key={ order.orderId } />
+                ))
+              }
             </div>
         </div>
     )

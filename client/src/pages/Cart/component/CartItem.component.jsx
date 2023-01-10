@@ -1,8 +1,8 @@
 import {Add, Subtract} from "grommet-icons";
 import {kebabCase} from "lodash";
 import { Link } from "react-router-dom";
-import {CurrencyFormat} from "../../lib/Currency";
-import {useShoppingCart} from "../../Context/ShoppingCartContext";
+import {CurrencyFormat} from "../../../lib/Currency";
+import {useShoppingCart} from "../../../Context/ShoppingCartContext";
 
 const CartItemComponent = ({ item }) =>{
 
