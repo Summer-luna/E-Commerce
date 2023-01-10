@@ -26,6 +26,6 @@
     "start": "node index.js",
     "build": "cd client && yarn build",
     "install-client": "cd client && yarn install",
-    "heroku-postbuild": "yarn run install-client && yarn run build"
+    "heroku-postbuild": "yarn run install-client && yarn run build && yarn install"
   }
 }
