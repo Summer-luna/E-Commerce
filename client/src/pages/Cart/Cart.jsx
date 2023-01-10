@@ -25,8 +25,8 @@ const Cart = () => {
   }
 
   return(
-    <div className="pt-28">
-      <div className="flex justify-between">
+    <div className="px-5 pt-20 md:pt-28">
+      <div className="flex flex-col justify-between">
         <div className="w-full pt-20">
           {
             cartItems != null && cartItems.map(item =>{
@@ -36,8 +36,8 @@ const Cart = () => {
             })
           }
         </div>
-        <div className="flex max-w-[500px] h-[650px]">
-          <div className="w-[400px] h-72 bg-stone-50 fixed b-72 p-12 right-32 bottom-32 border-2 flex flex-col items-start">
+        <div className="flex">
+          <div className="w-full  bg-stone-50  b-72 p-12 right-32 bottom-32 border-2 flex flex-col items-start">
             <div className="text-xl font-semibold mb-20">Subtotal: <span>{CurrencyFormat(calculateSubtotal())}</span></div>
             <button className="mb-5 bg-amber-300 btn" onClick={processCheckOut}>Check out</button>
             <button className="btn border-2 border-amber-400"><Link to="/shop">Continue Shopping</Link></button>

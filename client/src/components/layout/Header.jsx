@@ -1,11 +1,17 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import { data } from "../../data/data";
 import { Link } from "react-router-dom";
+import {useShoppingCart} from "../../Context/ShoppingCartContext";
 
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const {cartItems} = useShoppingCart();
 
   const toggleMenu = () => setMenuOpen((prevState) => !prevState);
+
+  const totalItemsInCart = cartItems && cartItems.reduce((sum, cartItem)=>{
+    return cartItem.quantity + sum;
+  }, 0)
 
   // dynamic styles
   const menuToggleStyle = menuOpen
@@ -22,7 +28,7 @@ export const Header = () => {
             Shop.
           </Link>
         </div>
-        <div className="hidden md:flex w-full justify-end gap-3 items-center">
+        <div className="hidden md:flex w-full justify-end gap-3 items-center relative">
           <ol className="p-0 m-0 flex gap-3">
             {data &&
               data.navLinks.map(({ name, url }, index) => {
@@ -38,6 +44,7 @@ export const Header = () => {
                   </li>
                 );
               })}
+            <span className='h-5 w-5 bg-red-500 rounded-full absolute right-0 text-white text-sm text-center'>{totalItemsInCart}</span>
           </ol>
         </div>
         <div className="block md:hidden">
@@ -59,7 +66,7 @@ export const Header = () => {
             <aside
               className={`flex justify-center items-center fixed top-0 right-0 bottom-0 h-screen py-12 px-2.5 bg-stone-200 FluidWidth shadow-aside z-0 transition-transform ${asideBarStyle}`}
             >
-              <nav className="w-full flex flex-col text-center text-fluid">
+              <nav className="w-full flex flex-col text-center text-fluid relative">
                 <ol className="w-full">
                   {data &&
                     data.navLinks.map(({ name, url }, index) => {
@@ -75,6 +82,7 @@ export const Header = () => {
                       );
                     })}
                 </ol>
+                <span className='h-5 w-5 bg-red-500 rounded-full absolute bottom-9 left-40 text-white text-sm text-center'>{totalItemsInCart}</span>
               </nav>
             </aside>
           </div>

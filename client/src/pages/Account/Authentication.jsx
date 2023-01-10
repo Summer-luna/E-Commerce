@@ -44,7 +44,7 @@ const Authentication = ({status}) => {
 
     const googleAuth = async () => {
         console.log("goggle");
-        window.location = "http://localhost:8000/auth/google";
+        window.location = "https://stationary-store.onrender.com/auth/google";
     }
 
     const inputs = [

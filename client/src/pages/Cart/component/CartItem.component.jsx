@@ -28,9 +28,9 @@ const CartItemComponent = ({ item }) =>{
   }
 
   return(
-      <div className="flex gap-32 mb-5" key={item._id}>
+      <div className="flex flex-col md:flex-row gap-10 md:gap-32 mb-20 md:mb-5 md:after:content-[''] after:w-full after:h-0.5 after:bg-stone-200 md:after:opacity-0" key={item._id}>
         <Link to={`/shop/${kebabCase(item.name)}`}>
-          <img src={item.image_url} alt={item.name} className="max-w-sm"/>
+          <img src={item.image_url} alt={item.name} className="md:max-w-sm"/>
         </Link>
         <div className="flex flex-col text-left">
           <div className="font-semibold mb-5">{item.name}</div>
